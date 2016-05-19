@@ -9,14 +9,10 @@ router.get('/exercises', function (req, res) {
 });
 
 router.put('/exercises', function (req, res) {
-    var newExercise = new SimpleExercise({
-        title: 'Exercise 1'
-    });
-    console.log(req);
-
-    SimpleExercise.save(function(err, ex) {
+    var newExercise = new SimpleExercise(req.body);
+    newExercise.save(function(err, ex) {
         if (err) return console.error(err);
-        console.dir(ex);
+        res.sendStatus(200);
     });
 });
 
