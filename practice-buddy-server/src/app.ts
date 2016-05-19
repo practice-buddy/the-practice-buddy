@@ -5,10 +5,12 @@ import favicon = require('serve-favicon');
 import logger = require('morgan');
 import cookieParser = require('cookie-parser');
 import bodyParser = require('body-parser');
-
+import mongoose = require('mongoose');
 import routes = require('./routes/index');
-import db = require('./model/db');
 let app = express();
+
+
+mongoose.connect('mongodb://localhost/test');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
