@@ -1,5 +1,6 @@
 practice-buddy-server/bin
 practice-buddy-server/node_modules
+practice-buddy-server/dist
 
 practice-buddy-client/dist
 practice-buddy-client/tmp
