@@ -1,5 +1,5 @@
 <component name="CopyrightManager">
-  <settings default="SBB">
+  <settings default="">
     <module2copyright>
       <element module="All" copyright="SBB" />
     </module2copyright>
