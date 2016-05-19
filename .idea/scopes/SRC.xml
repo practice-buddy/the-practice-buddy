@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="SRC" pattern="file[practice-buddy]:practice-buddy-client/src/*||file[practice-buddy]:practice-buddy-common/src/*" />
+</component>
