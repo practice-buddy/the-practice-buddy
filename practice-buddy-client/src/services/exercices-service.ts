@@ -26,12 +26,20 @@ export class ExercisesService {
   }
 
   updateExercise (exercise: Exercise): Observable<Exercise> {
-    let body = JSON.stringify({ Exercise });
+    let body = JSON.stringify(exercise);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(this.simpleExercisesUrl, body, options)
-      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  createExercise(exercise: Exercise): Observable<Exercise>{
+    let body = JSON.stringify(exercise);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(this.simpleExercisesUrl, body, options)
       .catch(this.handleError);
   }
 
