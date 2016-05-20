@@ -6,12 +6,11 @@
 
 <ul class="nav nav-tabs" *ngIf="loggedin()">
 
-<li role="presentation"><a [routerLink]="['/manage']">manage</a></li>
+  <li role="presentation"><a [routerLink]="['/manage']">manage</a></li>
   <li role="presentation"><a [routerLink]="['/execute']">execute</a></li>
 </ul>
 
-
-
-
-
+<div style="padding-top: 10px">
   <router-outlet></router-outlet>
+</div>
+

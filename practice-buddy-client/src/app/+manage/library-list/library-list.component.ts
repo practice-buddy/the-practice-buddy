@@ -10,6 +10,8 @@ import {Exercise} from "../../model/exercise";
 export class LibraryListComponent implements OnInit {
 
   @Input() exercises:Exercise[];
+  @Input() selectedExercise:Exercise;
+  
   @Output('exerciseSelected') exerciseSelected = new EventEmitter<Exercise>();
 
   constructor() {
