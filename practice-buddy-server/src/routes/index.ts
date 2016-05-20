@@ -1,16 +1,18 @@
 import express = require('express');
-import SimpleExercise = require('../model/exercise');
+import exercise = require('../model/exercise');
 let router = express.Router();
 
-router.get('/exercises', function (req, res) {
-    SimpleExercise.find((err, exercises) => {
+import SimpleExercise = exercise.SimpleExercise;
+import repository = exercise.repository;
+
+router.get('/exercises', (req, res) => {
+    repository.find((err, exercises) => {
         res.json(exercises);
     });
 });
 
-router.put('/exercises', function (req, res) {
-    var newExercise = new SimpleExercise(req.body);
-    newExercise.save(function(err, ex) {
+router.put('/exercises', (req, res) => {
+    repository.create(req.body, (err, ex) => {
         if (err) return console.error(err);
         res.sendStatus(200);
     });
