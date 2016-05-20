@@ -1,6 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from "@angular/core";
-import {Exercise} from "../../../model/exercise";
-import {ExercisesService} from "../../../services/exercices-service";
+import {Exercise} from "../../model/exercise";
+import {ExercisesService} from "../../services/exercices-service";
 
 @Component({
   moduleId: module.id,
@@ -10,7 +10,7 @@ import {ExercisesService} from "../../../services/exercices-service";
 })
 export class CreateNewExerciseComponent implements OnInit {
 
-  @Output('exerciseCreated') counterChange = new EventEmitter();
+  @Output('exerciseCreated') exerciseCreated = new EventEmitter();
 
   newExercise:Exercise;
 
@@ -28,7 +28,7 @@ export class CreateNewExerciseComponent implements OnInit {
     this.exercisesService.createExercise(this.newExercise).subscribe(
       error => this.errorMessage = <any>error);
     this.newExercise = new Exercise('');
-    this.counterChange.emit(null);
+    this.exerciseCreated.emit(null);
   }
 
 }

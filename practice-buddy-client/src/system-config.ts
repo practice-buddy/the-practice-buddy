@@ -29,15 +29,14 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/model',
+  'app/services',
   'app/+execute',
   'app/+manage',
-  'app/+manage/list',
   'app/+manage/detail',
-  'app/+manage/list/item',
   'app/+manage/create-new-exercise',
+  'app/+manage/library-list'
   /** @cli-barrel */
-  'model',
-  'services'
 ];
 
 const cliSystemConfigPackages: any = {};

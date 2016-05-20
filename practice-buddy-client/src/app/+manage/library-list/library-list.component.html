@@ -1,0 +1,9 @@
+<div class="row-fluid">
+  <ul>
+    <li *ngFor="let exercise of exercises"
+        [class.selected]="exercise === selectedExercise"
+        (click)="onSelect(exercise)">
+      {{exercise.title}}
+    </li>
+  </ul>
+</div>

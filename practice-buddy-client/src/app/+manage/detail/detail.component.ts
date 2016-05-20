@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {Exercise} from "../../../model/exercise";
-import {ExercisesService} from "../../../services/exercices-service";
+import {Exercise} from "../../model/exercise";
+import {ExercisesService} from "../../services/exercices-service";
 
 @Component({
   moduleId: module.id,
@@ -12,8 +12,7 @@ export class DetailComponent implements OnInit {
 
   editMode = false;
 
-  @Input()
-  exercise:Exercise;
+  @Input() exercise:Exercise;
 
   private errorMessage;
 
