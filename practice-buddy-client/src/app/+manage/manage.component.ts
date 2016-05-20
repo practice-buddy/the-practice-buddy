@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {DetailComponent} from "./detail/detail.component";
 import {Exercise} from "../../model/exercise";
 import {ExercisesService} from "../../services/exercices-service";
+import {CreateNewExerciseComponent} from "./create-new-exercise/create-new-exercise.component";
 
 @Component({
   moduleId: module.id,
   selector: 'app-manage',
   templateUrl: 'manage.component.html',
   styleUrls: ['manage.component.css'],
-  directives: [ DetailComponent],
+  directives: [ DetailComponent, CreateNewExerciseComponent],
   providers: [ExercisesService]
 })
 export class ManageComponent implements OnInit {

@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="col-xs-4">
+      <create-new-exercise></create-new-exercise>
       <ul>
         <li *ngFor="let exercise of exercises"
             [class.selected]="exercise === selectedExercise"

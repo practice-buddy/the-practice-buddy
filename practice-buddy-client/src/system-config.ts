@@ -34,6 +34,7 @@ const barrels: string[] = [
   'app/+manage/list',
   'app/+manage/detail',
   'app/+manage/list/item',
+  'app/+manage/create-new-exercise',
   /** @cli-barrel */
   'model',
   'services'
