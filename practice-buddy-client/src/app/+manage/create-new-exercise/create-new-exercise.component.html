@@ -1,9 +1,13 @@
 <form (ngSubmit)="onSubmit()" #exerciseForm="ngForm">
-  <div class="form-group" class="col-sm-8">
+  <div class="input-group" col-xs-12>
+
     <input type="text" class="form-control" required placeholder="Title"
            [(ngModel)]="newExercise.title"
            ngControl="name" #name="ngForm">
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-default" [disabled]="!exerciseForm.form.valid">
+        <div class="glyphicon glyphicon-plus"></div>
+      </button>
+    </span>
   </div>
-
-  <button type="submit" class="btn btn-default col-sm-3" [disabled]="!exerciseForm.form.valid">Create New</button>
 </form>

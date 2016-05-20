@@ -4,18 +4,11 @@
   </h1>
 </div>
 
-<!--<nav class="navbar navbar-default" >-->
-<nav class="navbar navbar-default" *ngIf="loggedin()">
-  <div class="container-fluid" >
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a [routerLink]="['/manage']">manage</a></li>
-        <li><a [routerLink]="['/execute']">execute</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<ul class="nav nav-tabs" *ngIf="loggedin()">
+
+<li role="presentation"><a [routerLink]="['/manage']">manage</a></li>
+  <li role="presentation"><a [routerLink]="['/execute']">execute</a></li>
+</ul>
 
 
 
