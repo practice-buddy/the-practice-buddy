@@ -1,0 +1,21 @@
+<div *ngIf="exercise">
+  <h2>{{exercise.title}}</h2>
+  <div>
+    <pre>{{exercise.text}}</pre>
+  </div>
+  <h4>how was your run?</h4>
+  <div class="btn-group" role="group" aria-label="...">
+    <button (click)="onClick(0)" type="button" class="btn btn-default" >
+      <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
+      <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
+    </button>
+    <button (click)="onClick(1)" type="button" class="btn btn-default">
+      <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
+      <div class="glyphicon glyphicon-star"></div>
+    </button>
+    <button (click)="onClick(2)" type="button" class="btn btn-default">
+      <div class="glyphicon glyphicon-star"></div>
+      <div class="glyphicon glyphicon-star"></div>
+    </button>
+  </div>
+</div>

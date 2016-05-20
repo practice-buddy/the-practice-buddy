@@ -1,3 +1,12 @@
-<p>
-  execute works!
-</p>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-xs-6 col-sm-3">
+      <execute-focus-list [selectedExercise]="selectedExercise"
+                          [exercises]="exercises"
+                          (exerciseSelected)="onExerciseSelect($event)"></execute-focus-list>
+    </div>
+    <div class="col-xs-6 col-sm-9">
+     <execute-exercise [exercise]="selectedExercise"></execute-exercise>
+    </div>
+  </div>
+</div>

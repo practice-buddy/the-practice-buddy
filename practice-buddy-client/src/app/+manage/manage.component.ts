@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {DetailComponent} from "./detail/detail.component";
 import {Exercise} from "../model/exercise";
 import {ExercisesService} from "../services/exercices-service";
@@ -10,7 +10,7 @@ import {LibraryListComponent} from "./library-list/library-list.component";
   selector: 'app-manage',
   templateUrl: 'manage.component.html',
   styleUrls: ['manage.component.css'],
-  directives: [ DetailComponent, CreateNewExerciseComponent, LibraryListComponent],
+  directives: [DetailComponent, CreateNewExerciseComponent, LibraryListComponent],
   providers: [ExercisesService]
 })
 export class ManageComponent implements OnInit {
@@ -20,13 +20,14 @@ export class ManageComponent implements OnInit {
   selectedExercise:Exercise;
   private errorMessage;
 
-  constructor(private exercisesService:ExercisesService) {}
+  constructor(private exercisesService:ExercisesService) {
+  }
 
   onExerciseSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
   }
 
-  onExerciseCreated(){
+  onExerciseCreated() {
     this.loadExercises();
   }
 
@@ -34,11 +35,11 @@ export class ManageComponent implements OnInit {
     this.loadExercises();
   }
 
-  private loadExercises(){
-      this.exercisesService.getExercise()
-        .subscribe(
-          exercises => this.exercises = exercises,
-          error =>  this.errorMessage = <any>error);
-      }
+  private loadExercises() {
+    this.exercisesService.getExercise()
+      .subscribe(
+        exercises => this.exercises = exercises,
+        error => this.errorMessage = <any>error);
+  }
 
 }
