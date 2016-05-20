@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {DetailComponent} from "./detail/detail.component";
 import {Exercise} from "../model/exercise";
 import {ExercisesService} from "../services/exercices-service";
-import {CreateNewExerciseComponent} from "./create-new-exercise/create-new-exercise.component";
 import {LibraryListComponent} from "./library-list/library-list.component";
 
 @Component({
@@ -10,7 +9,7 @@ import {LibraryListComponent} from "./library-list/library-list.component";
   selector: 'app-manage',
   templateUrl: 'manage.component.html',
   styleUrls: ['manage.component.css'],
-  directives: [DetailComponent, CreateNewExerciseComponent, LibraryListComponent],
+  directives: [DetailComponent, LibraryListComponent],
   providers: [ExercisesService]
 })
 export class ManageComponent implements OnInit {

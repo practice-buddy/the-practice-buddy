@@ -1,18 +1,8 @@
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="col-xs-6 col-sm-3">
-      Focus
-    </div>
-    <div class="col-xs-6 col-sm-3">
-      <div class="row-fluid">
-        <div class="col-xs-12">
-          <create-new-exercise (exerciseCreated)="onExerciseCreated()"></create-new-exercise>
-        </div>
-        <div class="col-xs-12">
-          <manage-library-list [selectedExercise]="selectedExercise"
-                               (exerciseSelected)="onExerciseSelect($event)"></manage-library-list>
-        </div>
-      </div>
+    <div class="col-xs-12 col-sm-6">
+      <manage-library-list [selectedExercise]="selectedExercise"
+                           (exerciseSelected)="onExerciseSelect($event)"></manage-library-list>
     </div>
     <div class="col-xs-12 col-sm-6">
       <manage-detail [exercise]="selectedExercise"></manage-detail>

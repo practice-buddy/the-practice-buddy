@@ -1,17 +1,26 @@
-<div class="row-fluid" [dragula]='"first-bag"' [dragulaModel]='libraryExercises'>
-  <div *ngFor="let exercise of libraryExercises"
-       [class.selected]="exercise === selectedExercise"
-       (click)="onSelect(exercise)" [attr.data-exercise-id]="exercise._id">
-    {{exercise.title}}
+<div class="row-fluid">
+  <div class="col-xs-6">
   </div>
+  <create-new-exercise class="col-xs-6" (exerciseCreated)="onExerciseCreated()"></create-new-exercise>
 </div>
-<div>
 
-  <div class="panel panel-default" [dragula]='"first-bag"' [dragulaModel]='practiceExercises'>
-    <div *ngFor="let practiceExercise of practiceExercises"
-         [attr.data-exercise-id]="practiceExercise._id"
-    >
-      {{practiceExercise.title}}
-    </div>
+<div class="row-fluid">
+  <div class="col-xs-6 panel panel-default">
+    <ul class="nav nav-pills nav-stacked" [dragula]='"first-bag"' [dragulaModel]='libraryExercises'>
+      <li role="presentation" *ngFor="let exercise of libraryExercises"
+          [class.selected]="exercise === selectedExercise"
+          [attr.data-exercise-id]="exercise._id">
+        <a (click)="onSelect(exercise)">{{exercise.title}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-xs-6 panel panel-default">
+    <ul class="nav nav-pills nav-stacked" [dragula]='"first-bag"' [dragulaModel]='practiceExercises'
+        style="min-height: 50px">
+      <li role="presentation" *ngFor="let practiceExercise of practiceExercises"
+          [attr.data-exercise-id]="practiceExercise._id">
+        <a (click)="onSelect(practiceExercise)">{{practiceExercise.title}}</a>
+      </li>
+    </ul>
   </div>
 </div>

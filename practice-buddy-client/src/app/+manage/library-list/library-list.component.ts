@@ -7,13 +7,14 @@ import {ExercisesService} from "../../services/exercices-service";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/forkJoin";
 import * as _ from "lodash";
+import {CreateNewExerciseComponent} from "../create-new-exercise/create-new-exercise.component";
 
 @Component({
   moduleId: module.id,
   selector: 'manage-library-list',
   templateUrl: 'library-list.component.html',
   viewProviders: [DragulaService],
-  directives: [Dragula],
+  directives: [CreateNewExerciseComponent, Dragula],
   providers: [PracticeFocusService],
   styleUrls: ['library-list.component.css']
 })

@@ -1,5 +1,5 @@
-<form (ngSubmit)="onSubmit()" #exerciseForm="ngForm">
-  <div class="input-group" col-xs-12>
+<form (ngSubmit)="onSubmit()" #exerciseForm="ngForm" class="col-xs-12">
+  <div class="input-group" >
 
     <input type="text" class="form-control" required placeholder="Title"
            [(ngModel)]="newExercise.title"
