@@ -34,6 +34,15 @@ export class ExercisesService {
       .catch(this.handleError);
   }
 
+  createExercise(exercise: Exercise): Observable<Exercise>{
+    let body = JSON.stringify(exercise);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(this.simpleExercisesUrl, body, options)
+      .catch(this.handleError);
+  }
+
   private extractData(res:Response) {
     return res.json();
   }

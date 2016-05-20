@@ -20,16 +20,24 @@ export class ManageComponent implements OnInit {
   private errorMessage;
 
   constructor(private exercisesService:ExercisesService) {}
-  
+
   onSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
   }
 
-  ngOnInit() {
-    this.exercisesService.getExercise()
-      .subscribe(
-        exercises => this.exercises = exercises,
-        error =>  this.errorMessage = <any>error);
+  onExerciseCreated(){
+    this.loadExercises();
   }
+
+  ngOnInit() {
+    this.loadExercises();
+  }
+
+  private loadExercises(){
+      this.exercisesService.getExercise()
+        .subscribe(
+          exercises => this.exercises = exercises,
+          error =>  this.errorMessage = <any>error);
+      }
 
 }
