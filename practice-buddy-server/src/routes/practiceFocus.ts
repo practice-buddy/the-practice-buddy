@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.put('/', (req, res) => {
+router.post('/', (req, res) => {
     repository.create(req.body, (err, ex) => {
         if (err) return console.error(err);
         res.sendStatus(200);

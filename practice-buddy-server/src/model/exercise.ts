@@ -1,15 +1,14 @@
 import mongoose = require('mongoose');
 
-export interface SimpleExercise extends mongoose.Document {
+export interface Exercise extends mongoose.Document {
     title:string;
-    text:string;
     labels:string[];
 }
+var options = {discriminatorKey: 'type'};
 
-let SimpleExerciseSchema = new mongoose.Schema({
+let ExerciseSchema = new mongoose.Schema({
     title: {type: String, required: true},
-    text: String,
     labels: [String]
-});
+}, options);
 
-export let repository = mongoose.model<SimpleExercise>('SimpleExercise', SimpleExerciseSchema);
+export let repository = mongoose.model<Exercise>('Exercise', ExerciseSchema);
