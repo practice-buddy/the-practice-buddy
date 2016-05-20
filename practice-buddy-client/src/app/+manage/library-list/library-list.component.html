@@ -1,8 +1,17 @@
-<div class="row-fluid">
-  <ul class="nav nav-pills nav-stacked">
-    <li role="presentation" *ngFor="let exercise of exercises"
-        [class.active]="exercise === selectedExercise">
-      <a (click)="onSelect(exercise)">{{exercise.title}}</a>
-    </li>
-  </ul>
+<div class="row-fluid" [dragula]='"first-bag"' [dragulaModel]='libraryExercises'>
+  <div *ngFor="let exercise of libraryExercises"
+       [class.selected]="exercise === selectedExercise"
+       (click)="onSelect(exercise)" [attr.data-exercise-id]="exercise._id">
+    {{exercise.title}}
+  </div>
+</div>
+<div>
+
+  <div class="panel panel-default" [dragula]='"first-bag"' [dragulaModel]='practiceExercises'>
+    <div *ngFor="let practiceExercise of practiceExercises"
+         [attr.data-exercise-id]="practiceExercise._id"
+    >
+      {{practiceExercise.title}}
+    </div>
+  </div>
 </div>

@@ -2,18 +2,24 @@
  * User Configuration.
  **********************************************************************************************/
 /** Map relative paths to URLs. */
-const map: any = {
+const map:any = {
+  'ng2-dragula': 'vendor/ng2-dragula',
+  'dragula': 'vendor/dragula',
+  'lodash': 'vendor/lodash',
 };
 
 /** User packages configuration. */
-const packages: any = {
+const packages:any = {
+  'ng2-dragula': {'main': 'ng2-dragula.js'},
+  'dragula': {'main': 'dist/dragula.js'},
+  'lodash': {'main': 'lodash.js'}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************
  * Everything underneath this line is managed by the CLI.
  **********************************************************************************************/
-const barrels: string[] = [
+const barrels:string[] = [
   // Angular specific barrels.
   '@angular/core',
   '@angular/common',
@@ -34,6 +40,7 @@ const barrels: string[] = [
   'app/+execute',
   'app/+manage',
   'app/+manage/detail',
+  'app/+manage/exercise-focus',
   'app/+manage/create-new-exercise',
   'app/+login',
   'app/+manage/library-list',

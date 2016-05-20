@@ -15,8 +15,6 @@ import {LibraryListComponent} from "./library-list/library-list.component";
 })
 export class ManageComponent implements OnInit {
 
-  exercises:Exercise[];
-
   selectedExercise:Exercise;
   private errorMessage;
 
@@ -28,18 +26,9 @@ export class ManageComponent implements OnInit {
   }
 
   onExerciseCreated() {
-    this.loadExercises();
   }
 
-  ngOnInit() {
-    this.loadExercises();
-  }
-
-  private loadExercises() {
-    this.exercisesService.getExercise()
-      .subscribe(
-        exercises => this.exercises = exercises,
-        error => this.errorMessage = <any>error);
+  ngOnInit():any {
   }
 
 }
