@@ -7,7 +7,7 @@ import { ManageComponent } from './+manage';
   moduleId: module.id,
   selector: 'practice-buddy-client-app',
   templateUrl: 'practice-buddy-client.component.html',
-  styleUrls: ['practice-buddy-client.component.css', '../bootstrap/css/bootstrap.css'],
+  styleUrls: ['practice-buddy-client.component.css'],
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS]
 })

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {Exercise} from "../../../model/exercise";
 
 @Component({
   moduleId: module.id,
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
+  @Input()
+  exercise: Exercise;
   constructor() {}
 
   ngOnInit() {

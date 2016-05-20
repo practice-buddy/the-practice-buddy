@@ -1,10 +1,16 @@
-<p>
-  manage works!
-
-</p>
-<div>
-<manage-detail></manage-detail>
-</div>
-<div>
-  <manage-list></manage-list>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-xs-4">
+      <ul>
+        <li *ngFor="let exercise of exercises"
+            [class.selected]="exercise === selectedExercise"
+            (click)="onSelect(exercise)">
+          {{exercise.title}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-8">
+      <manage-detail [exercise]="selectedExercise"></manage-detail>
+    </div>
+  </div>
 </div>
