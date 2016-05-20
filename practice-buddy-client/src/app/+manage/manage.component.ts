@@ -1,35 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import {DetailComponent} from "./detail/detail.component";
 import {Exercise} from "../../model/exercise";
+import {ExercisesService} from "../../services/exercices-service";
 
 @Component({
   moduleId: module.id,
   selector: 'app-manage',
   templateUrl: 'manage.component.html',
   styleUrls: ['manage.component.css'],
-  directives: [ DetailComponent]
-
+  directives: [ DetailComponent],
+  providers: [ExercisesService]
 })
 export class ManageComponent implements OnInit {
 
-  exercises:Exercise[] = [
-    {title: "Ex 1", text: "Do Ex 1"},
-    {title: "Ex 2", text: "Do Ex 2"},
-    {title: "Ex 3", text: "Do Ex 3"},
-    {title: "Ex 4", text: "Do Ex 4"}
-  ];
-
+  exercises:Exercise[];
 
   selectedExercise:Exercise;
+  private errorMessage;
 
+  constructor(private exercisesService:ExercisesService) {}
+  
   onSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
   }
 
-
-  constructor() {}
-
   ngOnInit() {
+    this.exercisesService.getExercise()
+      .subscribe(
+        exercises => this.exercises = exercises,
+        error =>  this.errorMessage = <any>error);
   }
 
 }
