@@ -1,9 +1,18 @@
 <div>
-  <div>
-    Hallo  {{user.name}}
+  <div class="container">
+
+    <div class="float-left">
+      <input type="text" class="form-control input-size" required placeholder="Your name buddy"
+             [(ngModel)]="user.name">
+    </div>
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-default button-size" (click)="login(user.name)">
+        <div class="glyphicon glyphicon-ok"></div>
+      </button>
+    </div>
   </div>
-  <div>
-    <input [(ngModel)]="user.name" placeholder="Your name"/>
-    <button (click)="login(user.name)">Login</button>
-  </div>
+
+
+  <!--<input [(ngModel)]="user.name" placeholder="Your name"/>-->
+  <!--<button (click)="login(user.name)">Login</button>-->
 </div>
