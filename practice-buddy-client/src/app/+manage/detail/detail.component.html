@@ -1,7 +1,7 @@
 <div *ngIf="exercise && !editMode">
   <h2>{{exercise.title}}</h2>
   <div>
-    <pre>{{exercise.text}}</pre>
+    {{exercise.text}}
   </div>
   <button class="btn btn-default" (click)="editMode=true">Edit</button>
 </div>
