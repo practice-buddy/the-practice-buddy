@@ -1,14 +1,16 @@
 import express = require('express');
-import exercise = require('../model/exercise');
+import exercise = require('../model/practiceFocus');
 let router = express.Router();
 
-import SimpleExercise = exercise.SimpleExercise;
+import PracticeFocus = exercise.PracticeFocus;
 import repository = exercise.repository;
 
 router.get('/', (req, res) => {
-    repository.find((err, exercises) => {
-        res.json(exercises);
-    });
+    repository.find({})
+        .populate('exercises')
+        .exec((err, exercises) => {
+            res.json(exercises);
+        });
 });
 
 router.put('/', (req, res) => {

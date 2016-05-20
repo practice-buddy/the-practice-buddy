@@ -7,6 +7,7 @@ import cookieParser = require('cookie-parser');
 import bodyParser = require('body-parser');
 import mongoose = require('mongoose');
 import exercises = require('./routes/exercises');
+import practiceFocus = require('./routes/practiceFocus');
 let app = express();
 
 
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', exercises);
+app.use('/exercises', exercises);
+app.use('/practiceFocus', practiceFocus);
 
 module.exports = app;
