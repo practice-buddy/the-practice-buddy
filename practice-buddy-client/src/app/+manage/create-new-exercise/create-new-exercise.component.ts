@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Exercise} from "../../../model/exercise";
 
 @Component({
   moduleId: module.id,
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateNewExerciseComponent implements OnInit {
 
+  newExercise:Exercise;
+
   constructor() {}
 
   ngOnInit() {
+    this.newExercise = new Exercise('');
   }
 
 }

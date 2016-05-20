@@ -1,14 +1,18 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="col-xs-4">
-      <create-new-exercise></create-new-exercise>
-      <ul>
-        <li *ngFor="let exercise of exercises"
-            [class.selected]="exercise === selectedExercise"
-            (click)="onSelect(exercise)">
-          {{exercise.title}}
-        </li>
-      </ul>
+        <div class="row-fluid">
+        <create-new-exercise></create-new-exercise>
+      </div>
+      <div class="row-fluid">
+        <ul>
+          <li *ngFor="let exercise of exercises"
+              [class.selected]="exercise === selectedExercise"
+              (click)="onSelect(exercise)">
+            {{exercise.title}}
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-xs-8">
       <manage-detail [exercise]="selectedExercise"></manage-detail>
