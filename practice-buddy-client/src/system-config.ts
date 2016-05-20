@@ -35,6 +35,7 @@ const barrels: string[] = [
   'app/+manage/detail',
   'app/+manage/list/item',
   /** @cli-barrel */
+  'model'
 ];
 
 const cliSystemConfigPackages: any = {};
