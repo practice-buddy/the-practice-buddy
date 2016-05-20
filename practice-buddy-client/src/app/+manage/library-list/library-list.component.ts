@@ -7,7 +7,7 @@ import {ExercisesService} from "../../services/exercices-service";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/forkJoin";
 import * as _ from "lodash";
-import {CreateNewExerciseComponent} from "../create-new-exercise/create-new-exercise.component";
+import {CreateNewExerciseComponent} from "./create-new-exercise/create-new-exercise.component";
 
 @Component({
   moduleId: module.id,

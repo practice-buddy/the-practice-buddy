@@ -1,6 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from "@angular/core";
-import {Exercise} from "../../model/exercise";
-import {ExercisesService} from "../../services/exercices-service";
+import {Exercise} from "../../../model/exercise";
+import {ExercisesService} from "../../../services/exercices-service";
 
 @Component({
   moduleId: module.id,
