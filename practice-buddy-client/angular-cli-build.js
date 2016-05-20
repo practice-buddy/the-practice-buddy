@@ -11,7 +11,11 @@ module.exports = function(defaults) {
       'es6-shim/es6-shim.js',
       'reflect-metadata/*.js',
       'rxjs/**/*.js',
-      '@angular/**/*.js'
+      '@angular/**/*.js',
+      'ng2-dragula/**/*.js',
+      'dragula/dist/dragula.js',
+      'dragula/dist/dragula.css',
+      'lodash/**/*.js'
     ]
   });
 };
