@@ -3,6 +3,7 @@
   <div>
     <pre>{{exercise.text}}</pre>
   </div>
+  <div class="panel" *ngIf="!executed()">
   <h4>how was your run?</h4>
   <div class="btn-group" role="group" aria-label="...">
     <button (click)="onClick(0)" type="button" class="btn btn-default" >
@@ -18,4 +19,5 @@
       <div class="glyphicon glyphicon-star"></div>
     </button>
   </div>
+    </div>
 </div>

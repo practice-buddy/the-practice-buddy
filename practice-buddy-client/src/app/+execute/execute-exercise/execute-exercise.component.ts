@@ -10,6 +10,11 @@ import {Exercise} from "../../model/exercise";
 export class ExecuteExerciseComponent implements OnInit {
 
   @Input() exercise:Exercise;
+  executedExercise:Exercise;
+
+  executed():boolean{
+    return  this.executedExercise === this.exercise;
+  }
 
   constructor() {
   }
@@ -18,6 +23,7 @@ export class ExecuteExerciseComponent implements OnInit {
   }
 
   onClick(rating:number){
+    this.executedExercise = this.exercise;
     if(rating === 0){
       window.alert("you're an idiot!");
     }else if(rating === 1){
