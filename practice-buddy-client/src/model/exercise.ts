@@ -1,4 +1,6 @@
-export interface Exercise{
-  title: string;
-  text: string;
+export class Exercise {
+
+  constructor(public title:string,
+              public text:string) {
+  };
 }
