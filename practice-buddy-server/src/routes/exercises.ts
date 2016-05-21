@@ -1,15 +1,36 @@
 import express = require('express');
 import exercise = require('../model/exercise');
 import simpleExercise = require('../model/simpleExercise');
+import exerciseExecution = require('../model/exerciseExecution');
 let router = express.Router();
 
 import Exercise = exercise.Exercise;
 import exerciseRepository = exercise.repository;
 import simpleExerciseRepository = simpleExercise.simpleRepository;
 
+import executionRepository  = exerciseExecution.repository;
+import ExerciseExecution  = exerciseExecution.ExerciseExecution;
+
 router.get('/', (req, res) => {
-    exerciseRepository.find((err, exercises) => {
+    exerciseRepository.find({}).populate('executions').exec((err, exercises) => {
         res.json(exercises);
+    });
+});
+
+
+router.post('/:exerciseId/execution', (req, res) => {
+    console.log('exerciseId: ' + req.params.exerciseId);
+    exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
+        let newExecution = {
+            "date": new Date(),
+            "personalPerformanceRating": req.body.personalPerformanceRating
+        };
+        executionRepository.create(newExecution, (err, execution) => {
+            exercise.executions.push(execution);
+            exercise.save((err) => {
+                res.sendStatus(err ? 500 : 200)
+            });
+        })
     });
 });
 
