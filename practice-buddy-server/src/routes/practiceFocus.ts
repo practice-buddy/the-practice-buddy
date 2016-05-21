@@ -8,7 +8,11 @@ import repository = exercise.repository;
 let findSinglePracticeFocus = function (res) {
     return () => {
         repository.findOne()
-            .populate('exercises')
+            .populate({
+                path: 'exercises',
+                // Get friends of friends - populate the 'friends' array for every friend
+                populate: {path: 'executions'}
+            })
             .exec((err, exercises) => {
                 res.json(exercises);
             });
@@ -17,7 +21,7 @@ let findSinglePracticeFocus = function (res) {
 router.get('/', (req, res) => {
     repository.count({}, (err, count) => {
         if (count === 0) {
-            repository.create({"title" : "Current focus"}, findSinglePracticeFocus(res));
+            repository.create({"title": "Current focus"}, findSinglePracticeFocus(res));
         } else {
             findSinglePracticeFocus(res)();
         }

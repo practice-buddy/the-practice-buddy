@@ -1,5 +1,5 @@
 <div class="row-fluid">
-    <create-new-exercise (exerciseCreated)="onExerciseCreated()"></create-new-exercise>
+  <create-new-exercise (exerciseCreated)="onExerciseCreated()"></create-new-exercise>
 </div>
 
 <div class="row-fluid">
@@ -8,7 +8,10 @@
       <li role="presentation" *ngFor="let exercise of libraryExercises"
           [class.active]="exercise === selectedExercise"
           [attr.data-exercise-id]="exercise._id">
-        <a (click)="onSelect(exercise)">{{exercise.title}}</a>
+        <a (click)="onSelect(exercise)">{{exercise.title}}
+          <span *ngIf="exercise.executions" class="badge">{{exercise.executions.length}}</span>
+        </a>
+
       </li>
     </ul>
   </div>
@@ -18,7 +21,9 @@
       <li role="presentation" *ngFor="let practiceExercise of practiceExercises"
           [class.active]="practiceExercise === selectedExercise"
           [attr.data-exercise-id]="practiceExercise._id">
-        <a (click)="onSelect(practiceExercise)">{{practiceExercise.title}}</a>
+        <a (click)="onSelect(practiceExercise)">{{practiceExercise.title}}
+          <span *ngIf="practiceExercise.executions" class="badge">{{practiceExercise.executions.length}}</span>
+        </a>
       </li>
     </ul>
   </div>

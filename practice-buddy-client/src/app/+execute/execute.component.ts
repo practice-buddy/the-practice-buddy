@@ -4,6 +4,7 @@ import {ExecuteExerciseComponent} from "./execute-exercise/execute-exercise.comp
 import {FocusListComponent} from "./focus-list/focus-list.component";
 import {PracticeFocusService} from "../services/practice-focus-service";
 import {PracticeFocus} from "../model/practice-focus";
+import {ExercisesService} from "../services/exercices-service";
 
 @Component({
   moduleId: module.id,
@@ -11,7 +12,7 @@ import {PracticeFocus} from "../model/practice-focus";
   templateUrl: 'execute.component.html',
   styleUrls: ['execute.component.css'],
   directives: [ExecuteExerciseComponent, FocusListComponent],
-  providers: [PracticeFocusService]
+  providers: [PracticeFocusService, ExercisesService]
 })
 export class ExecuteComponent implements OnInit {
 
@@ -21,17 +22,30 @@ export class ExecuteComponent implements OnInit {
 
   private errorMessage;
 
-  constructor(private practiceFoccusService:PracticeFocusService) {
+  constructor(private practiceFoccusService:PracticeFocusService,
+              private exerciseSerivce:ExercisesService) {
   }
 
   onExerciseSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
   }
 
-  ngOnInit() {
-    this.practiceFoccusService.getExerciseFocus()
+  onExerciseExecuted(rating:number) {
+    this.exerciseSerivce.saveExecution(this.selectedExercise._id, rating)
       .subscribe(
-        practiceFocus => this.practiceFocus = practiceFocus,
         error => this.errorMessage = <any>error);
+    this.selectedExercise = null;
+    this.loadPracticeFocus();
   }
+
+  ngOnInit() {
+    this.loadPracticeFocus();
+  }
+
+  private loadPracticeFocus(){
+      this.practiceFoccusService.getExerciseFocus()
+        .subscribe(
+          practiceFocus => this.practiceFocus = practiceFocus,
+          error => this.errorMessage = <any>error);
+      }
 }

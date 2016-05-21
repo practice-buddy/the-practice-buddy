@@ -4,20 +4,33 @@
     <pre>{{exercise.text}}</pre>
   </div>
   <div class="panel" *ngIf="!executed()">
-  <h4>how was your run?</h4>
-  <div class="btn-group" role="group" aria-label="...">
-    <button (click)="onClick(0)" type="button" class="btn btn-default" >
-      <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
-      <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
-    </button>
-    <button (click)="onClick(1)" type="button" class="btn btn-default">
-      <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
-      <div class="glyphicon glyphicon-star"></div>
-    </button>
-    <button (click)="onClick(2)" type="button" class="btn btn-default">
-      <div class="glyphicon glyphicon-star"></div>
-      <div class="glyphicon glyphicon-star"></div>
-    </button>
-  </div>
+    <h4>how was your run?</h4>
+    <div class="btn-group" role="group" aria-label="...">
+      <button (click)="onClick(0)" type="button" class="btn btn-default">
+        <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
+        <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
+      </button>
+      <button (click)="onClick(1)" type="button" class="btn btn-default">
+        <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
+        <div class="glyphicon glyphicon-star"></div>
+      </button>
+      <button (click)="onClick(2)" type="button" class="btn btn-default">
+        <div class="glyphicon glyphicon-star"></div>
+        <div class="glyphicon glyphicon-star"></div>
+      </button>
     </div>
+  </div>
+  <table class="table">
+    <tr *ngFor="let exerciseExecution of exercise.executions">
+      <td>{{exerciseExecution.date}}</td>
+      <td>
+        <div *ngIf="exerciseExecution.personalPerformanceRating > 0" class="glyphicon glyphicon-star"></div>
+        <div *ngIf="exerciseExecution.personalPerformanceRating > 1" class="glyphicon glyphicon-star"></div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="!exercise">
+  <h3 *ngIf="lastResult">{{lastResult}}</h3>
+  <h4>select an exercise to do...</h4>
 </div>

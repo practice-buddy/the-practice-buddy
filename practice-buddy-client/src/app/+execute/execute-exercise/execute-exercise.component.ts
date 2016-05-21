@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {Exercise} from "../../model/exercise";
 
 @Component({
@@ -11,9 +11,12 @@ export class ExecuteExerciseComponent implements OnInit {
 
   @Input() exercise:Exercise;
   executedExercise:Exercise;
+  lastResult:string;
 
-  executed():boolean{
-    return  this.executedExercise === this.exercise;
+  @Output('exerciseExecuted') exerciseExecuted = new EventEmitter<number>();
+
+  executed():boolean {
+    return this.executedExercise === this.exercise;
   }
 
   constructor() {
@@ -22,14 +25,15 @@ export class ExecuteExerciseComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick(rating:number){
-    this.executedExercise = this.exercise;
-    if(rating === 0){
-      window.alert("you're an idiot!");
-    }else if(rating === 1){
-      window.alert("try harder!");
-    }else {
-      window.alert("your practice buddy loves you!");
+  onClick(rating:number) {
+
+    this.exerciseExecuted.emit(rating);
+    if (rating === 0) {
+      this.lastResult = "you're an idiot!";
+    } else if (rating === 1) {
+      this.lastResult = "try harder!";
+    } else {
+      this.lastResult = "your practice buddy loves you!";
     }
   }
 
