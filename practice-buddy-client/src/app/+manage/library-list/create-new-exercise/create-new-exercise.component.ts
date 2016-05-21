@@ -20,14 +20,14 @@ export class CreateNewExerciseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.newExercise = new Exercise('');
+    this.newExercise = new Exercise('', []);
   }
 
   onSubmit() {
     console.log(this.newExercise);
     this.exercisesService.createExercise(this.newExercise).subscribe(
       error => this.errorMessage = <any>error);
-    this.newExercise = new Exercise('');
+    this.newExercise = new Exercise('', []);
     this.exerciseCreated.emit(null);
   }
 
