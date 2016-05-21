@@ -5,6 +5,7 @@ import {FocusListComponent} from "./focus-list/focus-list.component";
 import {PracticeFocusService} from "../services/practice-focus-service";
 import {PracticeFocus} from "../model/practice-focus";
 import {ExercisesService} from "../services/exercices-service";
+import * as _ from "lodash";
 
 @Component({
   moduleId: module.id,
@@ -34,7 +35,7 @@ export class ExecuteComponent implements OnInit {
     this.exerciseSerivce.saveExecution(this.selectedExercise._id, rating)
       .subscribe(
         error => this.errorMessage = <any>error);
-    this.selectedExercise = null;
+
     this.loadPracticeFocus();
   }
 
@@ -42,10 +43,18 @@ export class ExecuteComponent implements OnInit {
     this.loadPracticeFocus();
   }
 
-  private loadPracticeFocus(){
-      this.practiceFoccusService.getExerciseFocus()
-        .subscribe(
-          practiceFocus => this.practiceFocus = practiceFocus,
-          error => this.errorMessage = <any>error);
-      }
+  private loadPracticeFocus() {
+    this.practiceFoccusService.getExerciseFocus()
+      .subscribe(
+        practiceFocus => {
+          this.practiceFocus = practiceFocus;
+
+          if(this.selectedExercise) {
+            this.selectedExercise = _.find(this.practiceFocus.exercises, {"_id": this.selectedExercise._id});
+            console.log(this.selectedExercise);
+
+          }
+        },
+        error => this.errorMessage = <any>error);
+  }
 }
