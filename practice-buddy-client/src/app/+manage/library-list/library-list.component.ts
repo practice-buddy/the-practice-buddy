@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from "@angular/core";
+import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
 import {Exercise} from "../../model/exercise";
 import {Dragula, DragulaService} from "ng2-dragula/ng2-dragula";
 import {PracticeFocusService} from "../../services/exercices-focus-service";
@@ -21,6 +21,7 @@ import {CreateNewExerciseComponent} from "./create-new-exercise/create-new-exerc
 export class LibraryListComponent implements OnInit {
 
   @Output('exerciseSelected') exerciseSelected = new EventEmitter<Exercise>();
+  @Input() selectedExercise:Exercise;
 
   private practiceFocus:PracticeFocus;
   private practiceExercises:Exercise[] = [];
@@ -60,6 +61,7 @@ export class LibraryListComponent implements OnInit {
   }
 
   onSelect(exercise:Exercise) {
+    this.selectedExercise = exercise;
     this.exerciseSelected.emit(exercise);
   }
 
