@@ -26,7 +26,7 @@ router.post('/:exerciseId/execution', (req, res) => {
             "personalPerformanceRating": req.body.personalPerformanceRating
         };
         executionRepository.create(newExecution, (err, execution) => {
-            exercise.executions.push(execution);
+            exercise.executions.unshift(execution);
             exercise.save((err) => {
                 res.sendStatus(err ? 500 : 200)
             });

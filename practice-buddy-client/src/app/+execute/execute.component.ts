@@ -48,11 +48,8 @@ export class ExecuteComponent implements OnInit {
       .subscribe(
         practiceFocus => {
           this.practiceFocus = practiceFocus;
-
           if(this.selectedExercise) {
             this.selectedExercise = _.find(this.practiceFocus.exercises, {"_id": this.selectedExercise._id});
-            console.log(this.selectedExercise);
-
           }
         },
         error => this.errorMessage = <any>error);
