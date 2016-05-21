@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Exercise} from "../model/exercise";
-import {ExercisesService} from "../services/exercices-service";
 import {ExecuteExerciseComponent} from "./execute-exercise/execute-exercise.component";
 import {FocusListComponent} from "./focus-list/focus-list.component";
+import {PracticeFocusService} from "../services/practice-focus-service";
+import {PracticeFocus} from "../model/practice-focus";
 
 @Component({
   moduleId: module.id,
@@ -10,26 +11,27 @@ import {FocusListComponent} from "./focus-list/focus-list.component";
   templateUrl: 'execute.component.html',
   styleUrls: ['execute.component.css'],
   directives: [ExecuteExerciseComponent, FocusListComponent],
-  providers: [ExercisesService]
+  providers: [PracticeFocusService]
 })
 export class ExecuteComponent implements OnInit {
 
-  exercises:Exercise[];
+  practiceFocus:PracticeFocus;
 
   selectedExercise:Exercise;
+
   private errorMessage;
-  
-  constructor(private exercisesService:ExercisesService) {
+
+  constructor(private practiceFoccusService:PracticeFocusService) {
   }
 
   onExerciseSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
   }
-  
+
   ngOnInit() {
-    this.exercisesService.getExercise()
+    this.practiceFoccusService.getExerciseFocus()
       .subscribe(
-        exercises => this.exercises = exercises,
+        practiceFocus => this.practiceFocus = practiceFocus,
         error => this.errorMessage = <any>error);
   }
 }

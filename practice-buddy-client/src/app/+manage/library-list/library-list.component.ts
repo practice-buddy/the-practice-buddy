@@ -1,7 +1,7 @@
 import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
 import {Exercise} from "../../model/exercise";
 import {Dragula, DragulaService} from "ng2-dragula/ng2-dragula";
-import {PracticeFocusService} from "../../services/exercices-focus-service";
+import {PracticeFocusService} from "../../services/practice-focus-service";
 import {PracticeFocus} from "../../model/practice-focus";
 import {ExercisesService} from "../../services/exercices-service";
 import {Observable} from "rxjs/Observable";
