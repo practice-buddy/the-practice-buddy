@@ -28,7 +28,16 @@ export class LibraryListComponent implements OnInit {
   private libraryExercises:Exercise[] = [];
 
   constructor(private dragulaService:DragulaService, private exercisesFocusService:PracticeFocusService, private exercisesService:ExercisesService) {
+    this.fetchData();
 
+    dragulaService.dropModel.subscribe(() => {
+      this.practiceFocus.exercises = this.practiceExercises;
+      this.exercisesFocusService.updateFocus(this.practiceFocus).subscribe(
+        error => console.log(error));
+    });
+  }
+
+  private fetchData() {
     Observable.forkJoin(
       this.exercisesService.getExercise(),
       this.exercisesFocusService.getExerciseFocus()
@@ -36,8 +45,12 @@ export class LibraryListComponent implements OnInit {
       data => {
         let exercises = data[0];
         let practiceFocus = data[1];
+        this.libraryExercises.length = 0;
+        this.practiceExercises.length = 0;
+
         this.libraryExercises.push(...exercises);
         this.practiceExercises.push(...practiceFocus.exercises);
+
         this.practiceFocus = practiceFocus;
         _.forEach(this.practiceExercises, (each) => {
           _.remove(this.libraryExercises, {
@@ -48,20 +61,13 @@ export class LibraryListComponent implements OnInit {
       },
       err => console.error(err)
     );
-
-    dragulaService.dropModel.subscribe(() => {
-      this.practiceFocus.exercises = this.practiceExercises;
-      this.exercisesFocusService.updateFocus(this.practiceFocus).subscribe(
-        error => console.log(error));
-    });
-
   }
 
   ngOnInit() {
   }
 
   onExerciseCreated() {
-    window.alert("implement refresh!!!");
+    this.fetchData();
   }
 
   onSelect(exercise:Exercise) {
