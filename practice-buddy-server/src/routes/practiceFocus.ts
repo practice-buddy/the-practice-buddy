@@ -5,12 +5,23 @@ let router = express.Router();
 import PracticeFocus = exercise.PracticeFocus;
 import repository = exercise.repository;
 
+let findSinglePracticeFocus = function (res) {
+    return () => {
+        repository.findOne()
+            .populate('exercises')
+            .exec((err, exercises) => {
+                res.json(exercises);
+            });
+    }
+};
 router.get('/', (req, res) => {
-    repository.findOne()
-        .populate('exercises')
-        .exec((err, exercises) => {
-            res.json(exercises);
-        });
+    repository.count({}, (err, count) => {
+        if (count === 0) {
+            repository.create({"title" : "Current focus"}, findSinglePracticeFocus(res));
+        } else {
+            findSinglePracticeFocus(res)();
+        }
+    });
 });
 
 router.post('/', (req, res) => {

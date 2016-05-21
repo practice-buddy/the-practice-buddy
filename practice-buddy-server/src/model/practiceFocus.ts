@@ -1,15 +1,15 @@
 import mongoose = require('mongoose');
 import {Schema} from "mongoose";
-import {SimpleExercise} from "./exercise";
+import {Exercise} from "./exercise";
 
 export interface PracticeFocus extends mongoose.Document {
     title:string;
-    exercises:SimpleExercise[];
+    exercises:Exercise[];
 }
 
 let PracticeFocusSchema = new mongoose.Schema({
     title: {type: String, required: true},
-    exercises: [{type: Schema.Types.ObjectId, ref: 'SimpleExercise'}]
+    exercises: [{type: Schema.Types.ObjectId, ref: 'Exercise'}]
 });
 
 export let repository = mongoose.model<PracticeFocus>('PracticeFocus', PracticeFocusSchema);
