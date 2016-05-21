@@ -60,6 +60,10 @@ export class LibraryListComponent implements OnInit {
   ngOnInit() {
   }
 
+  onExerciseCreated() {
+    window.alert("implement refresh!!!");
+  }
+
   onSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
     this.exerciseSelected.emit(exercise);

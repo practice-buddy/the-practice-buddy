@@ -23,10 +23,7 @@ export class ManageComponent implements OnInit {
   onExerciseSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
   }
-
-  onExerciseCreated() {
-  }
-
+  
   ngOnInit():any {
   }
 
