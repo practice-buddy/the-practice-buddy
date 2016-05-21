@@ -10,14 +10,9 @@ import {Exercise} from "../../model/exercise";
 export class ExecuteExerciseComponent implements OnInit {
 
   @Input() exercise:Exercise;
-  executedExercise:Exercise;
-  lastResult:string;
+  @Input() executed:boolean;
 
   @Output('exerciseExecuted') exerciseExecuted = new EventEmitter<number>();
-
-  executed():boolean {
-    return this.executedExercise === this.exercise;
-  }
 
   constructor() {
   }
@@ -26,15 +21,7 @@ export class ExecuteExerciseComponent implements OnInit {
   }
 
   onClick(rating:number) {
-
     this.exerciseExecuted.emit(rating);
-    if (rating === 0) {
-      this.lastResult = "you're an idiot!";
-    } else if (rating === 1) {
-      this.lastResult = "try harder!";
-    } else {
-      this.lastResult = "your practice buddy loves you!";
-    }
   }
 
 }

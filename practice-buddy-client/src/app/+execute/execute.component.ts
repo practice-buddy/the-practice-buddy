@@ -18,8 +18,8 @@ import * as _ from "lodash";
 export class ExecuteComponent implements OnInit {
 
   practiceFocus:PracticeFocus;
-
   selectedExercise:Exercise;
+  executed:boolean;
 
   private errorMessage;
 
@@ -28,10 +28,12 @@ export class ExecuteComponent implements OnInit {
   }
 
   onExerciseSelect(exercise:Exercise) {
+    this.executed = false;
     this.selectedExercise = exercise;
   }
 
   onExerciseExecuted(rating:number) {
+    this.executed = true;
     this.exerciseSerivce.saveExecution(this.selectedExercise._id, rating)
       .subscribe(
         error => this.errorMessage = <any>error);

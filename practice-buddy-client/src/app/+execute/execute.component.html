@@ -8,6 +8,7 @@
     </div>
     <div class="col-xs-6 col-sm-9">
       <execute-exercise [exercise]="selectedExercise"
+                        [executed]="executed"
                         (exerciseExecuted)="onExerciseExecuted($event)"></execute-exercise>
     </div>
   </div>
