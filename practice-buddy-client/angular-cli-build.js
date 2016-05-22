@@ -15,7 +15,10 @@ module.exports = function(defaults) {
       'ng2-dragula/**/*.js',
       'dragula/dist/dragula.js',
       'dragula/dist/dragula.css',
-      'lodash/**/*.js'
+      'lodash/**/*.js',
+      'primeng/**/*.js',
+      'primeui/**/*.js',
+      'primeui/**/*.css'
     ]
   });
 };

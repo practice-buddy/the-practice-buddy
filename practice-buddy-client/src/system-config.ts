@@ -6,13 +6,15 @@ const map:any = {
   'ng2-dragula': 'vendor/ng2-dragula',
   'dragula': 'vendor/dragula',
   'lodash': 'vendor/lodash',
+  'primeng': 'vendor/primeng',
 };
 
 /** User packages configuration. */
 const packages:any = {
   'ng2-dragula': {'main': 'ng2-dragula.js'},
   'dragula': {'main': 'dist/dragula.js'},
-  'lodash': {'main': 'lodash.js'}
+  'lodash': {'main': 'lodash.js'},
+  'primeng': {'main': 'primeng.js'},
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
