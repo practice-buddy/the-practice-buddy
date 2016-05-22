@@ -6,13 +6,15 @@ const map:any = {
   'ng2-dragula': 'vendor/ng2-dragula',
   'dragula': 'vendor/dragula',
   'lodash': 'vendor/lodash',
+  'showdown': 'vendor/showdown'
 };
 
 /** User packages configuration. */
 const packages:any = {
   'ng2-dragula': {'main': 'ng2-dragula.js'},
   'dragula': {'main': 'dist/dragula.js'},
-  'lodash': {'main': 'lodash.js'}
+  'lodash': {'main': 'lodash.js'},
+  'showdown': {'main': 'dist/showdown.min.js'}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,6 +48,9 @@ const barrels:string[] = [
   'app/+manage/library-list',
   'app/+execute/focus-list',
   'app/+execute/execute-exercise',
+  'app/shared/exercise-detail-view',
+  'app/shared/markdown-view',
+  'app/shared/exercise-view',
   /** @cli-barrel */
 ];
 

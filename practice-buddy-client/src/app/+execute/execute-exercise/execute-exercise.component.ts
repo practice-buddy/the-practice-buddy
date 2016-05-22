@@ -1,11 +1,14 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {Exercise} from "../../model/exercise";
+import {MarkdownViewComponent} from "../../shared/markdown-view/markdown-view.component";
+import {ExerciseViewComponent} from "../../shared/exercise-view/exercise-view.component";
 
 @Component({
   moduleId: module.id,
   selector: 'execute-exercise',
   templateUrl: 'execute-exercise.component.html',
-  styleUrls: ['execute-exercise.component.css']
+  styleUrls: ['execute-exercise.component.css'],
+  directives: [ExerciseViewComponent]
 })
 export class ExecuteExerciseComponent implements OnInit {
 
