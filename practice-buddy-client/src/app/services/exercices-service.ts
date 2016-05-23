@@ -29,24 +29,26 @@ export class ExercisesService {
     let body = JSON.stringify(exercise);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-
-    let url;
-    console.log(exercise);
-    if(exercise.type === 'SimpleExericse') {
-      url = this.simpleExercisesUrl;
-    } else if(exercise.type === 'FlashcardExercise') {
-      url = this.flashcardExercisesUrl;
-    }
-    return this.http.put(url, body, options)
+    return this.http.put(this.getUrlForExerciseType(exercise), body, options)
       .catch(this.handleError);
   }
+
+  private getUrlForExerciseType(exercise) {
+
+    if (exercise.type === 'SimpleExercise') {
+      return this.simpleExercisesUrl;
+    } else if (exercise.type === 'FlashcardExercise') {
+      return this.flashcardExercisesUrl;
+    }
+    throw new Error('Unknown Exercise Type');
+  };
 
   createExercise(exercise:Exercise):Observable<Exercise> {
     let body = JSON.stringify(exercise);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
-    return this.http.post(this.simpleExercisesUrl, body, options)
+    return this.http.post(this.getUrlForExerciseType(exercise), body, options)
       .catch(this.handleError);
   }
 

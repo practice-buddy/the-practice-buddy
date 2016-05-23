@@ -16,18 +16,20 @@ export class CreateNewExerciseComponent implements OnInit {
 
   private errorMessage;
 
+  types = ['SimpleExercise', 'FlashcardExercise'];
+
   constructor(private exercisesService:ExercisesService) {
   }
 
   ngOnInit() {
-    this.newExercise = new Exercise('', []);
+    this.newExercise = new Exercise('', 'SimpleExercise');
   }
 
   onSubmit() {
     console.log(this.newExercise);
     this.exercisesService.createExercise(this.newExercise).subscribe(
       error => this.errorMessage = <any>error);
-    this.newExercise = new Exercise('', []);
+    this.ngOnInit();
     this.exerciseCreated.emit(null);
   }
 
