@@ -18,7 +18,7 @@ export class MarkdownViewComponent {
   private showdownConverter = new showdown.Converter();
 
   getHtmlForMarkdown(markdown:string) {
-    return this.showdownConverter.makeHtml(this.embedYoutTubePlayer(markdown));
+    return this.showdownConverter.makeHtml(this.embedSpotifyPlayer(this.embedYoutTubePlayer(markdown)));
   }
 
   embedYoutTubePlayer(markdown:string):string{
@@ -29,6 +29,18 @@ export class MarkdownViewComponent {
         'frameborder="0"></iframe>');
       console.log(markdown + ' \n' + result);
         return result
+    }else{
+      return markdown;
+    }
+  }
+
+  embedSpotifyPlayer(markdown:string):string{
+    if(markdown){
+      let result = markdown.replace(/https:\/\/open\.spotify\.com\/track\/([^ |^\n]+)|spotify:track:([^ |^\n]+)/g,
+        '<iframe src="https://embed.spotify.com/?uri=spotify:track:$1$2" ' +
+        'width="300" height="180" frameborder="0" allowtransparency="true"></iframe>');
+      console.log(markdown + ' \n' + result);
+      return result
     }else{
       return markdown;
     }
