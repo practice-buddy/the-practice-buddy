@@ -17,6 +17,7 @@ export class ExercisesService {
 
   private exercisesUrl = 'exercises';
   private simpleExercisesUrl = this.exercisesUrl + '/simpleExercises';
+  private flashcardExercisesUrl = this.exercisesUrl + '/flashcardExercises';
 
   getExercise():Observable<Exercise[]> {
     return this.http.get(this.exercisesUrl)
@@ -29,7 +30,14 @@ export class ExercisesService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
-    return this.http.put(this.simpleExercisesUrl, body, options)
+    let url;
+    console.log(exercise);
+    if(exercise.type === 'SimpleExericse') {
+      url = this.simpleExercisesUrl;
+    } else if(exercise.type === 'FlashcardExercise') {
+      url = this.flashcardExercisesUrl;
+    }
+    return this.http.put(url, body, options)
       .catch(this.handleError);
   }
 

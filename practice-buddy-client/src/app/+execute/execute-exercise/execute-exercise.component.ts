@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {Exercise} from "../../model/exercise";
+import {FlashcardExecutionComponent} from "./flashcard-execution/flashcard-execution.component";
 import {MarkdownViewComponent} from "../../shared/markdown-view/markdown-view.component";
 import {ExerciseViewComponent} from "../../shared/exercise-view/exercise-view.component";
 
@@ -8,7 +9,7 @@ import {ExerciseViewComponent} from "../../shared/exercise-view/exercise-view.co
   selector: 'execute-exercise',
   templateUrl: 'execute-exercise.component.html',
   styleUrls: ['execute-exercise.component.css'],
-  directives: [ExerciseViewComponent]
+  directives: [ExerciseViewComponent, FlashcardExecutionComponent]
 })
 export class ExecuteExerciseComponent implements OnInit {
 
@@ -25,6 +26,10 @@ export class ExecuteExerciseComponent implements OnInit {
 
   onClick(rating:number) {
     this.exerciseExecuted.emit(rating);
+  }
+
+  isFlashcardExercise() {
+    return this.exercise.type === 'FlashcardExercise'
   }
 
 }

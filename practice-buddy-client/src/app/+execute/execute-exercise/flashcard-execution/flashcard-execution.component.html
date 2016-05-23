@@ -1,0 +1,13 @@
+  <div class="container-fluid">
+    <div class="row" >
+      <div class="col-md-4 panel panel-default" *ngFor="let flashcardGroup of flashcardGroups">
+        <div class="panel-body">
+          <h1>{{flashcardGroup}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-default" (click)="updateFlashcards()">Next</button>
+
+
