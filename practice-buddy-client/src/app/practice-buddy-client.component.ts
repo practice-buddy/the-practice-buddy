@@ -25,7 +25,6 @@ export class PracticeBuddyClientAppComponent implements OnInit {
   title = 'practice-buddy-client works!';
 
   loggedin():User {
-    console.log("loggin. User : "+this.userService.getUser());
     return this.userService.getUser();
   }
 
@@ -35,7 +34,6 @@ export class PracticeBuddyClientAppComponent implements OnInit {
 
   constructor(private router:Router, private userService:UserService) {
     if (this.userService.getUser() == null) {
-      console.log("redirect to login page from constructor");
       this.router.navigate(['/login']);
     }
   }
