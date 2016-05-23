@@ -2,7 +2,6 @@
   <exercise-view [exercise]="exercise"></exercise-view>
 
   <div>
-    <pre *ngIf="exercise.text">{{exercise.text}}</pre>
     <div >
       <flashcard-execution *ngIf="isFlashcardExercise()" [exercise]="exercise"></flashcard-execution>
     </div>
