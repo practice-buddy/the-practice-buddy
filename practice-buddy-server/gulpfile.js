@@ -38,7 +38,7 @@ gulp.task('buildServerAndRestart', ['buildServer'], function (cb) {
     });
 });
 
-gulp.task('serveClient', ['runServer'], function (cb) {
+gulp.task('serveClient', function (cb) {
     var exec = childprocess.exec;
 
     exec('cd ../practice-buddy-client && ng serve --proxy http://localhost:3011', function (error, stdout, stderr) {
@@ -54,8 +54,6 @@ gulp.task('copyClientToDist', ['buildClient', 'buildServer'], function () {
     return gulp.src('../practice-buddy-client/dist/**/*')
         .pipe(gulp.dest('dist/client'));
 });
-
-gulp.task('startDev', ['runServer', 'serveClient']);
 
 gulp.task('buildAllAndRunServer', ['copyClientToDist'], function () {
     server.listen({path: './bin/www'});
