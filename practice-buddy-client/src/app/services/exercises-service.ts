@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Exercise} from "../model/exercise";
+import {ExerciseType} from "../model/exercise-type";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
@@ -12,11 +13,17 @@ import "rxjs/add/operator/toPromise";
 @Injectable()
 export class ExercisesService {
 
-  constructor(private http:Http) {
-  }
-
   private exercisesUrl = 'exercises';
   private simpleExercisesUrl = this.exercisesUrl + '/simpleExercises';
+  private flashcardExercisesUrl = this.exercisesUrl + '/flashcardExercises';
+
+  private typeToUrlMap:Map<string, string> = new Map<string, string>();
+
+  constructor(private http:Http) {
+    this.typeToUrlMap.set(ExerciseType.FlashcardExercise, this.flashcardExercisesUrl);
+    this.typeToUrlMap.set(ExerciseType.SimpleExercise, this.simpleExercisesUrl);
+  }
+
 
   getExercise():Observable<Exercise[]> {
     return this.http.get(this.exercisesUrl)
@@ -28,17 +35,22 @@ export class ExercisesService {
     let body = JSON.stringify(exercise);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-
-    return this.http.put(this.simpleExercisesUrl, body, options)
+    return this.http.put(this.getUrlForExerciseType(exercise), body, options)
       .catch(this.handleError);
   }
+
+  private getUrlForExerciseType(exercise: Exercise) {
+    let url = this.typeToUrlMap.get(exercise.type);
+    if (!url) throw new Error('Unknown Exercise Type');
+    return url;
+  };
 
   createExercise(exercise:Exercise):Observable<Exercise> {
     let body = JSON.stringify(exercise);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
-    return this.http.post(this.simpleExercisesUrl, body, options)
+    return this.http.post(this.getUrlForExerciseType(exercise), body, options)
       .catch(this.handleError);
   }
 

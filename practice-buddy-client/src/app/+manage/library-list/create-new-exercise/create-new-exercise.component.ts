@@ -1,6 +1,7 @@
 import {Component, OnInit, EventEmitter, Output} from "@angular/core";
 import {Exercise} from "../../../model/exercise";
-import {ExercisesService} from "../../../services/exercices-service";
+import {ExerciseType} from "../../../model/exercise-type";
+import {ExercisesService} from "../../../services/exercises-service";
 
 @Component({
   moduleId: module.id,
@@ -14,20 +15,21 @@ export class CreateNewExerciseComponent implements OnInit {
 
   newExercise:Exercise;
 
-  private errorMessage;
+  errorMessage:string;
+
+  types:string[] = Object.keys(ExerciseType);
 
   constructor(private exercisesService:ExercisesService) {
   }
 
   ngOnInit() {
-    this.newExercise = new Exercise('', []);
+    this.newExercise = new Exercise('');
   }
 
   onSubmit() {
-    console.log(this.newExercise);
     this.exercisesService.createExercise(this.newExercise).subscribe(
       error => this.errorMessage = <any>error);
-    this.newExercise = new Exercise('', []);
+    this.ngOnInit();
     this.exerciseCreated.emit(null);
   }
 

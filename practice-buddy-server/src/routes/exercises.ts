@@ -1,12 +1,15 @@
 import express = require('express');
 import exercise = require('../model/exercise');
 import simpleExercise = require('../model/simpleExercise');
+import flashcardExercise = require('../model/flashcardExercise');
 import exerciseExecution = require('../model/exerciseExecution');
+import flashcardGroup = require('../model/flashcardGroup');
 let router = express.Router();
 
 import Exercise = exercise.Exercise;
 import exerciseRepository = exercise.repository;
 import simpleExerciseRepository = simpleExercise.simpleRepository;
+import flashcardExerciseRepository = flashcardExercise.flashcardRepository;
 
 import executionRepository  = exerciseExecution.repository;
 import ExerciseExecution  = exerciseExecution.ExerciseExecution;
@@ -43,6 +46,20 @@ router.post('/simpleExercises', (req, res) => {
 
 router.put('/simpleExercises', (req, res) => {
     simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+router.post('/flashcardExercises', (req, res) => {
+    flashcardExerciseRepository.create(req.body, (err, ex) => {
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+router.put('/flashcardExercises', (req, res) => {
+    flashcardExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
         if (err) return console.error(err);
         res.sendStatus(200);
     });

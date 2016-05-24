@@ -1,0 +1,27 @@
+<div>
+  <h4>Flashcards <button type="button" class="btn btn-default" (click)="addFlashcardGroup()"> <div class="glyphicon glyphicon-plus"></div></button></h4>
+  <div class="container-float">
+    <div class="row">
+      <div *ngFor="let flashcardGroup of exercise.flashcardGroups" class="col-md-5">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form class="form-inline">
+              <input #createFlashcardInput type="text" class="form-control" placeholder="Add flashcard" size="25">
+              <button type="submit" class="btn btn-default form-control"
+                      (click)="addFlashcard(flashcardGroup, createFlashcardInput)">
+                <div class="glyphicon glyphicon-plus"></div>
+              </button>
+              <button type="button" class="btn btn-default form-control" (click)="removeFlashcardGroup(flashcardGroup)">
+                <div class="glyphicon glyphicon-remove"></div>
+              </button>
+            </form>
+            <div *ngFor="let flashcard of flashcardGroup.flashcards">
+              {{flashcard}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

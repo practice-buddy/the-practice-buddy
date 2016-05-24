@@ -4,7 +4,7 @@ var ts = require('gulp-typescript');
 var childprocess = require('child_process');
 server = require('gulp-develop-server');
 
-gulp.task('runServer', function () {
+gulp.task('runServer', ['buildServer'], function () {
     server.listen({path: './bin/www'});
 });
 
@@ -38,7 +38,7 @@ gulp.task('buildServerAndRestart', ['buildServer'], function (cb) {
     });
 });
 
-gulp.task('serveClient', function (cb) {
+gulp.task('serveClient', function () {
     var exec = childprocess.exec;
 
     exec('cd ../practice-buddy-client && ng serve --proxy http://localhost:3011', function (error, stdout, stderr) {
@@ -46,7 +46,6 @@ gulp.task('serveClient', function (cb) {
         if (error) {
             console.log(error, stderr);
         }
-        cb(error);
     });
 });
 

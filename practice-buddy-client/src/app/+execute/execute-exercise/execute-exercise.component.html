@@ -1,8 +1,10 @@
 <div *ngIf="exercise">
   <exercise-view [exercise]="exercise"></exercise-view>
+  <flashcard-execution *ngIf="isFlashcardExercise()" [exercise]="exercise"></flashcard-execution>
 
   <div class="panel" *ngIf="!executed">
     <h4>how was your run?</h4>
+
     <div class="btn-group" role="group" aria-label="...">
       <button (click)="onClick(0)" type="button" class="btn btn-default">
         <div class="glyphicon glyphicon-star-empty" style="color: grey;"></div>
