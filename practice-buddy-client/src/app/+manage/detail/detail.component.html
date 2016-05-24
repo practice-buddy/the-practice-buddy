@@ -1,8 +1,5 @@
 <div *ngIf="exercise" class="row">
-
-  <div *ngIf="editMode">
-    <exercise-editor [exercise]="exercise" (exerciseUpdated)="editMode=false"></exercise-editor>
-  </div>
+  <exercise-editor *ngIf="editMode" [exercise]="exercise" (exerciseUpdated)="editMode=false"></exercise-editor>
   <div>
     <exercise-view [exercise]="exercise"></exercise-view>
     <button *ngIf="!editMode" class="btn btn-default" (click)="editMode=true">Edit</button>

@@ -14,7 +14,7 @@ export class FlashcardExecutionComponent implements OnInit, OnChanges {
   @Input()
   exercise:FlashcardExercise;
 
-  flashcardGroups:string[] = [];
+  flashcards:string[] = [];
 
   constructor() {
   }
@@ -29,11 +29,11 @@ export class FlashcardExecutionComponent implements OnInit, OnChanges {
 
   updateFlashcards():void {
 
-    this.flashcardGroups.length = 0;
+    this.flashcards.length = 0;
 
     _.forEach(this.exercise.flashcardGroups, (group) => {
       let randomFlashCard = group.flashcards[Math.floor(Math.random() * group.flashcards.length)];
-      this.flashcardGroups.push(randomFlashCard);
+      this.flashcards.push(randomFlashCard);
     });
   }
 }

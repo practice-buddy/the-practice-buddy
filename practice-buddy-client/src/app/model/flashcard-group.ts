@@ -1,3 +1,3 @@
 export class FlashcardGroup {
-  flashcards:string[];
+  flashcards:string[]=[];
 }
