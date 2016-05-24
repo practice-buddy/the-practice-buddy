@@ -11,12 +11,6 @@
           Name is required
         </div>
       </div>
-
-      {{results}}
-
-      <p-autoComplete [(ngModel)]="exercise.labels" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"></p-autoComplete>
-
-
       <div class="form-group">
         <label for="text" class="col-xs-2 col-lg-1">Text</label>
         <textarea rows="20" class="form-control"
