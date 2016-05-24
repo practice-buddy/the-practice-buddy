@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
+import {Exercise} from "../../../model/exercise";
+import {FlashcardExercise} from "../../../model/flashcard-exercise";
+
 @Component({
   moduleId: module.id,
   selector: 'flashcard-execution',
@@ -8,12 +11,10 @@ import * as _ from 'lodash';
 })
 export class FlashcardExecutionComponent implements OnInit, OnChanges {
 
-
   @Input()
-  exercise;
+  exercise:FlashcardExercise;
 
-  flashcardGroups = [];
-
+  flashcardGroups:string[] = [];
 
   constructor() {
   }
@@ -21,7 +22,7 @@ export class FlashcardExecutionComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges(event) {
+  ngOnChanges(event:any) {
     this.exercise = event.exercise.currentValue;
     this.updateFlashcards();
   }
@@ -31,7 +32,7 @@ export class FlashcardExecutionComponent implements OnInit, OnChanges {
     this.flashcardGroups.length = 0;
 
     _.forEach(this.exercise.flashcardGroups, (group) => {
-      var randomFlashCard = group.flashcards[Math.floor(Math.random() * group.flashcards.length)];
+      let randomFlashCard = group.flashcards[Math.floor(Math.random() * group.flashcards.length)];
       this.flashcardGroups.push(randomFlashCard);
     });
   }

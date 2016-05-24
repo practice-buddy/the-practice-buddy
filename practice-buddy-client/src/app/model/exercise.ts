@@ -1,4 +1,5 @@
 import {ExerciseExecution} from "./exercise-execution";
+import {ExerciseType} from "./exercise-type";
 export class Exercise {
 
   public _id;
@@ -6,6 +7,8 @@ export class Exercise {
   public executions:ExerciseExecution[] = [];
   public text:string;
 
-  constructor(public title:string, public type: string) {
+  public type:string = ExerciseType.SimpleExercise;
+
+  constructor(public title:string) {
   };
 }

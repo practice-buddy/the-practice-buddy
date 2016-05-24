@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {Exercise} from "../../model/exercise";
-import {ExercisesService} from "../../services/exercices-service";
+import {ExercisesService} from "../../services/exercises-service";
 import {ExerciseViewComponent} from "../../shared/exercise-view/exercise-view.component";
 import {ExerciseEditorComponent} from "./exercise-editor/exercise-editor.component";
 

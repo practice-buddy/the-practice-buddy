@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import {Exercise} from "../../../model/exercise";
-import {ExercisesService} from "../../../services/exercices-service";
+import {ExercisesService} from "../../../services/exercises-service";
 
 @Component({
   moduleId: module.id,
@@ -23,7 +23,6 @@ export class ExerciseEditorComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.exercise);
     this.exercisesService.updateExercise(this.exercise).subscribe(
       error => this.errorMessage = <any>error);
     this.exerciseUpdated.emit(this.exercise);

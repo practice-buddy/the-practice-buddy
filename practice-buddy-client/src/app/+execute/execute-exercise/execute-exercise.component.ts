@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {Exercise} from "../../model/exercise";
+import {ExerciseType} from "../../model/exercise-type";
 import {FlashcardExecutionComponent} from "./flashcard-execution/flashcard-execution.component";
 import {MarkdownViewComponent} from "../../shared/markdown-view/markdown-view.component";
 import {ExerciseViewComponent} from "../../shared/exercise-view/exercise-view.component";
@@ -29,7 +30,7 @@ export class ExecuteExerciseComponent implements OnInit {
   }
 
   isFlashcardExercise() {
-    return this.exercise.type === 'FlashcardExercise'
+    return this.exercise.type === ExerciseType.FlashcardExercise;
   }
 
 }

@@ -27,7 +27,6 @@ export class MarkdownViewComponent {
         '<iframe type="text/html" width="100%" height="450" '+
         'src="http://www.youtube.com/embed/$1" '+
         'frameborder="0"></iframe>');
-      console.log(markdown + ' \n' + result);
         return result
     }else{
       return markdown;
@@ -39,7 +38,6 @@ export class MarkdownViewComponent {
       let result = markdown.replace(/https:\/\/open\.spotify\.com\/track\/([^ |^\n]+)|spotify:track:([^ |^\n]+)/g,
         '<iframe src="https://embed.spotify.com/?uri=spotify:track:$1$2" ' +
         'width="300" height="180" frameborder="0" allowtransparency="true"></iframe>');
-      console.log(markdown + ' \n' + result);
       return result
     }else{
       return markdown;

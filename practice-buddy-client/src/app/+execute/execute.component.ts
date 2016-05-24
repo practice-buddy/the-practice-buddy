@@ -4,7 +4,7 @@ import {ExecuteExerciseComponent} from "./execute-exercise/execute-exercise.comp
 import {FocusListComponent} from "./focus-list/focus-list.component";
 import {PracticeFocusService} from "../services/practice-focus-service";
 import {PracticeFocus} from "../model/practice-focus";
-import {ExercisesService} from "../services/exercices-service";
+import {ExercisesService} from "../services/exercises-service";
 import * as _ from "lodash";
 
 @Component({

@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {DetailComponent} from "./detail/detail.component";
 import {Exercise} from "../model/exercise";
-import {ExercisesService} from "../services/exercices-service";
 import {LibraryListComponent} from "./library-list/library-list.component";
+import {ExercisesService} from "../services/exercises-service";
 
 @Component({
   moduleId: module.id,
@@ -23,7 +23,7 @@ export class ManageComponent implements OnInit {
   onExerciseSelect(exercise:Exercise) {
     this.selectedExercise = exercise;
   }
-  
+
   ngOnInit():any {
   }
 
