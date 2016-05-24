@@ -28,7 +28,10 @@ export class FlashcardEditorComponent implements OnInit {
   }
 
   addFlashcard(flashcardGroup, inputField) {
-    flashcardGroup.flashcards.push(inputField.value);
-    inputField.value = '';
+    if (inputField.value) {
+      flashcardGroup.flashcards.push(inputField.value);
+      inputField.value = '';
+    }
+
   }
 }

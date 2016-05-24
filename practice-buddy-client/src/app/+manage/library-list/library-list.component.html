@@ -4,7 +4,7 @@
 
 <div class="row-fluid">
   <div class="col-xs-6 panel panel-default">
-    <ul class="nav nav-pills nav-stacked" [dragula]='"first-bag"' [dragulaModel]='libraryExercises'>
+    <ul class="nav nav-pills nav-stacked" [dragula]='"first-bag"' [dragulaModel]='libraryExercises' style="min-height: 200px">
       <li role="presentation" *ngFor="let exercise of libraryExercises"
           [class.active]="exercise === selectedExercise"
           [attr.data-exercise-id]="exercise._id">
