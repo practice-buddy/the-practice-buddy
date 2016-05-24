@@ -16,8 +16,6 @@
 <body>
   <practice-buddy-client-app>Loading...</practice-buddy-client-app>
 
-
-
     {{#each scripts.polyfills}}<script src="{{.}}"></script>{{/each}}
     <script>
       System.import('system-config.js').then(function () {

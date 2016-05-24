@@ -1,11 +1,4 @@
-<div *ngIf="exercise">
-  <div *ngIf="!editMode">
-    <h2>{{exercise.title}}</h2>
-    <div>
-      <pre>{{exercise.text}}</pre>
-    </div>
-    <button class="btn btn-default" (click)="editMode=true">Edit</button>
-  </div>
+<div *ngIf="exercise" class="row">
 
   <div *ngIf="editMode">
     <form (ngSubmit)="onSubmit()" #exerciseForm="ngForm" class="form-horizontal">
@@ -29,13 +22,18 @@
         <textarea rows="20" class="form-control"
                   [(ngModel)]="exercise.text"
                   ngControl="text" class="col-xs-10 col-lg-11"></textarea>
+        You could use <a href="https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax" target="_blank">markdown</a> for text formatting.
       </div>
 
       <button type="submit" class="btn btn-default" [disabled]="!exerciseForm.form.valid">Submit</button>
     </form>
   </div>
+  <div>
+    <exercise-view [exercise]="exercise"></exercise-view>
+    <button *ngIf="!editMode" class="btn btn-default" (click)="editMode=true">Edit</button>
+  </div>
 
-  <table class="table">
+  <table *ngIf="!editMode" class="table">
     <tr *ngFor="let exerciseExecution of exercise.executions">
       <td>{{exerciseExecution.date}}</td>
       <td>

@@ -1,8 +1,6 @@
 <div *ngIf="exercise">
-  <h2>{{exercise.title}}</h2>
-  <div>
-    <pre>{{exercise.text}}</pre>
-  </div>
+  <exercise-view [exercise]="exercise"></exercise-view>
+
   <div class="panel" *ngIf="!executed">
     <h4>how was your run?</h4>
     <div class="btn-group" role="group" aria-label="...">

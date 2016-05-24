@@ -24,4 +24,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/exercises', exercises);
 app.use('/practiceFocus', practiceFocus);
 
+app.use(express.static(__dirname + '/client'));
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+});
+
 module.exports = app;

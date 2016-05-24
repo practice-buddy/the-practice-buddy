@@ -16,9 +16,7 @@ module.exports = function(defaults) {
       'dragula/dist/dragula.js',
       'dragula/dist/dragula.css',
       'lodash/**/*.js',
-      'primeng/**/*.js',
-      'primeui/**/*.js',
-      'primeui/**/*.css'
+      'showdown/dist/showdown.min.js'
     ]
   });
 };
