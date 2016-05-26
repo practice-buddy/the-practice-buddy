@@ -22,6 +22,16 @@
 
   </div>
 
+  <div>
+    <input type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>
+    <button type="button" class="btn btn-default" (click)="uploader.uploadAll()"
+            [disabled]="!uploader.getNotUploadedItems().length">Upload
+    </button>
+    <div class="progress" style="">
+      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+    </div>
+  </div>
+
   <div class="form-group">
     <flashcard-editor *ngIf="isFlashcardExercise()" [exercise]="exercise"></flashcard-editor>
   </div>

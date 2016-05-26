@@ -4,5 +4,10 @@
   </div>
   <div class="panel-body">
     <markdown-view [markdown]="exercise.text"></markdown-view>
+
+    <div *ngFor="let audiofile of exercise.attachments">
+      <audio-player [src]="'/exercises/attachments/' + audiofile.content"></audio-player>
+    </div>
+
   </div>
 </div>

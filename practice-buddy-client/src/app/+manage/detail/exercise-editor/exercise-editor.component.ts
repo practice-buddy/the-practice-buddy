@@ -1,20 +1,25 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angular/core';
 import {Exercise} from "../../../model/exercise";
 import {ExercisesService} from "../../../services/exercises-service";
 import {ExerciseType} from "../../../model/exercise-type";
 import {FlashcardEditorComponent} from "../flashcard-editor/flashcard-editor.component";
+import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
+import * as _ from 'lodash';
 
 @Component({
   moduleId: module.id,
   selector: 'exercise-editor',
   templateUrl: 'exercise-editor.component.html',
-  directives: [FlashcardEditorComponent],
+  directives: [FlashcardEditorComponent, FILE_UPLOAD_DIRECTIVES],
+
   styleUrls: ['exercise-editor.component.css']
 })
-export class ExerciseEditorComponent implements OnInit {
+export class ExerciseEditorComponent implements OnInit, OnChanges {
 
   @Input() exercise:Exercise;
   @Output('exerciseUpdated') exerciseUpdated = new EventEmitter<Exercise>();
+
+  public uploader:FileUploader = new FileUploader({});
 
   private errorMessage;
 
@@ -22,6 +27,16 @@ export class ExerciseEditorComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  upload() {
+    _.forEach(this.uploader.queue, (item)=> {
+      item.upload();
+    })
+  }
+
+  ngOnChanges(event:any) {
+    this.uploader.setOptions({url: '/exercises/' + this.exercise._id + '/attachments'})
   }
 
   onSubmit() {

@@ -4,13 +4,14 @@ import {ExerciseType} from "../../model/exercise-type";
 import {FlashcardExecutionComponent} from "./flashcard-execution/flashcard-execution.component";
 import {MarkdownViewComponent} from "../../shared/markdown-view/markdown-view.component";
 import {ExerciseViewComponent} from "../../shared/exercise-view/exercise-view.component";
+import {AudioPlayerComponent} from "../../shared/audio-player/audio-player.component";
 
 @Component({
   moduleId: module.id,
   selector: 'execute-exercise',
   templateUrl: 'execute-exercise.component.html',
   styleUrls: ['execute-exercise.component.css'],
-  directives: [ExerciseViewComponent, FlashcardExecutionComponent]
+  directives: [ExerciseViewComponent, FlashcardExecutionComponent, AudioPlayerComponent]
 })
 export class ExecuteExerciseComponent implements OnInit {
 

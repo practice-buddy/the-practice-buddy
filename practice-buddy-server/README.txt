@@ -23,4 +23,5 @@ curl -H "Content-Type: application/json" -X POST -d '{"personalPerformanceRating
 
 
 
- curl -H "Content-Type: application/json" -X POST -d '{"title":"The Flashcard","flashcardGroups":[{"flashcards":["C","D","E","F","G","A","H" ]}, {"flashcards": ["#", "Natural", "b" ]  },  {"flashcards":["Dur", "Moll"]}]}' http://localhost:3011/exercises/flashcardExercises
+curl -H "Content-Type: application/json" -X POST -d '{"title":"The Flashcard","flashcardGroups":[{"flashcards":["C","D","E","F","G","A","H" ]}, {"flashcards": ["#", "Natural", "b" ]  },  {"flashcards":["Dur", "Moll"]}]}' http://localhost:3011/exercises/flashcardExercises
+

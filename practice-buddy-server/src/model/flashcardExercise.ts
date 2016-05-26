@@ -9,7 +9,8 @@ export interface FlashcardExercise extends Exercise {
 
 let options = {discriminatorKey: 'type'};
 
-export let flashcardRepository = repository.discriminator('FlashcardExercise',
-    new mongoose.Schema({
-        flashcardGroups: [FlashcardGroupSchema]
-    }, options));
+let FlashcardExerciseSchema = new mongoose.Schema({
+    flashcardGroups: [FlashcardGroupSchema]
+}, options);
+
+export let flashcardRepository = repository.discriminator('FlashcardExercise', FlashcardExerciseSchema);
