@@ -6,6 +6,7 @@
     <markdown-view [markdown]="exercise.text"></markdown-view>
 
     <div *ngFor="let audiofile of exercise.attachments">
+      <h4>{{audiofile.name}}</h4>
       <audio-player [src]="'/exercises/attachments/' + audiofile.content"></audio-player>
     </div>
 

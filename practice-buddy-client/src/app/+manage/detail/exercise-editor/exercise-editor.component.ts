@@ -29,21 +29,35 @@ export class ExerciseEditorComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  upload() {
-    _.forEach(this.uploader.queue, (item)=> {
-      item.upload();
-    })
-  }
 
   ngOnChanges(event:any) {
     this.uploader.setOptions({url: '/exercises/' + this.exercise._id + '/attachments'})
   }
 
   onSubmit() {
+
+    this.uploader.onCompleteAll = () => {
+      this.exercisesService.getExercise(this.exercise._id).subscribe((updatedExercise)=> {
+        this.exercise.attachments.length = 0;
+        this.exercise.attachments.push(...updatedExercise.attachments);
+        this.updateExercise();
+      })
+    };
+
+    if (this.uploader.getNotUploadedItems().length > 0) {
+      this.uploader.uploadAll();
+    } else {
+      this.updateExercise();
+    }
+
+
+  }
+
+  private updateExercise() {
     this.exercisesService.updateExercise(this.exercise).subscribe(
       error => this.errorMessage = <any>error);
     this.exerciseUpdated.emit(this.exercise);
-  }
+  };
 
   isFlashcardExercise() {
     return this.exercise.type === ExerciseType.FlashcardExercise;

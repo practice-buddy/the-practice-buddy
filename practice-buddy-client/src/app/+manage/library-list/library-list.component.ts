@@ -39,7 +39,7 @@ export class LibraryListComponent implements OnInit {
 
   private fetchData() {
     Observable.forkJoin(
-      this.exercisesService.getExercise(),
+      this.exercisesService.getExercises(),
       this.exercisesFocusService.getExerciseFocus()
     ).subscribe(
       data => {

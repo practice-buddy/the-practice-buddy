@@ -29,9 +29,14 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:exerciseId', (req, res) => {
+    exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
+        res.json(exercise);
+    });
+});
+
 
 router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
-    console.log(req.files);
     exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
         _.forEach(req.files, (file) => {
             attachmentContentRepository.create(file, (err, attachmentContent) => {
@@ -59,9 +64,7 @@ router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
 router.get('/attachments/:attachmentId', (req, res) => {
     attachmentContentRepository.findOne({"_id": req.params.attachmentId}, (err, file) => {
         var total = file.buffer.length;
-        console.log(file);
         if (req.headers.range) {
-            console.log(req.headers.range);
             var range = req.headers.range;
             var parts = range.replace(/bytes=/, "").split("-");
             var partialstart = parts[0];
@@ -76,7 +79,6 @@ router.get('/attachments/:attachmentId', (req, res) => {
 
 
             var chunksize = (end - start) + 1;
-            console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
             res.writeHead(206, {
                 'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
                 'Accept-Ranges': 'bytes',

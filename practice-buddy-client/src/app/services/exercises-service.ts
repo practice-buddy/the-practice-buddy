@@ -24,8 +24,13 @@ export class ExercisesService {
     this.typeToUrlMap.set(ExerciseType.SimpleExercise, this.simpleExercisesUrl);
   }
 
+  getExercise(id: number):Observable<Exercise> {
+    return this.http.get( this.exercisesUrl + "/" + id)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
-  getExercise():Observable<Exercise[]> {
+  getExercises():Observable<Exercise[]> {
     return this.http.get(this.exercisesUrl)
       .map(this.extractData)
       .catch(this.handleError);
