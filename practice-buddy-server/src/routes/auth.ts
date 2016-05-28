@@ -2,6 +2,8 @@ module.exports = (app) => {
     let mongoose = require('mongoose');
     let express = require('express');
     let router = express.Router();
+    let bcrypt = require('bcrypt-nodejs');
+
 
     let passport = require('passport');
     let passportLocal = require('passport-local');
@@ -35,7 +37,7 @@ module.exports = (app) => {
                 if (!user) {
                     return done(null, false, {alert: 'Incorrect username.'});
                 }
-                if (user.password != password) {
+                if (!bcrypt.compareSync(password, user.password)) {
                     return done(null, false, {alert: 'Incorrect password.'});
                 }
                 return done(null, user);

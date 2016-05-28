@@ -3,6 +3,9 @@ let express = require('express');
 let router = express.Router();
 let passport = require('passport');
 let user = require('../model/user');
+import bcrypt = require('bcrypt-nodejs');
+
+
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -28,9 +31,10 @@ router.get('/currentuser', isAuthenticated, function (req, res) {
 });
 
 router.post('/signup', function (req, res) {
+
     var u = {
         name: req.body.name,
-        password: req.body.password,
+        password: bcrypt.hashSync(req.body.password),
         email: req.body.email
     };
     user.repository.create(u, function (err) {
