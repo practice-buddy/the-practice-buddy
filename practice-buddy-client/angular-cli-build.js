@@ -16,7 +16,8 @@ module.exports = function(defaults) {
       'dragula/dist/dragula.js',
       'dragula/dist/dragula.css',
       'lodash/**/*.js',
-      'showdown/dist/showdown.min.js'
+      'showdown/dist/showdown.min.js',
+      'ng2-file-upload/**/*.js',
     ]
   });
 };

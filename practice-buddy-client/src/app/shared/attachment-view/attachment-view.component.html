@@ -1,0 +1,27 @@
+<div *ngFor="let attachment of exercise.attachments">
+
+  <div class="panel panel-default" [hidden] ="attachment.deleted">
+    <div class="panel-body">
+      <h4>{{getAttachmentTitle(attachment)}}</h4>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="btn-group col-md-2" role="group">
+            <div class="btn btn-default">
+              <a [attr.href]="getStreamingUrl(attachment)"
+                 [attr.download]="attachment.name">
+                <div class="glyphicon glyphicon-download"></div>
+              </a>
+            </div>
+            <div *ngIf="editMode" class="btn btn-default" (click)="deleteAttachment(attachment)">
+              <div class="glyphicon glyphicon-remove"></div>
+            </div>
+          </div>
+          <div *ngIf="isAudioFile(attachment) && !editMode" class="col-md-4">
+            <audio-player [src]="getStreamingUrl(attachment)" [playbackRate]="playbackRate.value"></audio-player>
+            <input type="range" value="100" style="width: 300px" #playbackRate>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
