@@ -2,6 +2,7 @@ import express = require('express');
 import fs = require('fs');
 import multer  = require('multer');
 import * as _ from 'lodash';
+import {ExerciseLibrary} from "../model/exerciseLibrary";
 let upload = multer();
 
 import exercise = require('../model/exercise');
@@ -10,6 +11,7 @@ import flashcardExercise = require('../model/flashcardExercise');
 import exerciseExecution = require('../model/exerciseExecution');
 import flashcardGroup = require('../model/flashcardGroup');
 import attachmentContent = require('../model/attachmentContent');
+import exerciseLibrary = require('../model/exerciseLibrary');
 
 import {ExerciseAttachment} from "../model/exerciseAttachment";
 let router = express.Router();
@@ -22,11 +24,26 @@ import flashcardExerciseRepository = flashcardExercise.flashcardRepository;
 import executionRepository  = exerciseExecution.repository;
 import ExerciseExecution  = exerciseExecution.ExerciseExecution;
 
+import exerciseLibraryRepository = exerciseLibrary.repository;
+
 import attachmentContentRepository  = attachmentContent.repository;
 
+
 router.get('/', (req, res) => {
-    exerciseRepository.find({}).populate('executions').exec((err, exercises) => {
-        res.json(exercises);
+    exerciseLibraryRepository.count({"owner": req.user._id}, (err, count) => {
+        if (count === 0) {
+            exerciseLibraryRepository.create({"owner": req.user._id}, () => {
+                res.json([]);
+            });
+        } else {
+            exerciseLibraryRepository.findOne({"owner": req.user._id}).populate({
+                path: 'exercises',
+                populate: {path: 'executions'}
+            }).exec((err, library:ExerciseLibrary) => {
+                console.log(library);
+                res.json(library.exercises);
+            });
+        }
     });
 });
 
@@ -49,7 +66,6 @@ router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
                         name: file.originalname,
                         content: attachmentContent
                     };
-
                     exercise.attachments.push(exerciseAttachment);
                     exercise.save((err) => {
                         res.sendStatus(err ? 500 : 200)
@@ -57,10 +73,13 @@ router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
                 }
             })
         });
-
-
     });
 });
+
+
+var getUserLibrary = function (req, callback) {
+    exerciseLibraryRepository.findOne({"owner": req.user._id}, callback);
+};
 
 
 router.get('/attachments/:attachmentId', (req, res) => {
@@ -117,17 +136,19 @@ router.post('/:exerciseId/execution', (req, res) => {
 });
 
 router.post('/simpleExercises', (req, res) => {
-    simpleExerciseRepository.create(req.body, (err, ex) => {
-        if (err) return console.error(err);
-        res.sendStatus(200);
-    });
+    getUserLibrary(req, (err, library:ExerciseLibrary) => {
+        simpleExerciseRepository.create(req.body, (err, ex) => {
+            if (err) return console.error(err);
+            addExerciseToLibrary(library, ex, res);
+        });
+    };
 });
 
 
 let deleteAttachment = function (exercise, attachment) {
     attachmentContentRepository.findByIdAndRemove(attachment.content, (err) => {
         if (err) {
-            console.log('Could not delete file: ' + attachment + ' error:'  + err);
+            console.log('Could not delete file: ' + attachment + ' error:' + err);
         }
     });
 };
@@ -143,10 +164,7 @@ this.deleteAttachments = function (body:any):void {
 }
 
 router.put('/simpleExercises', (req, res) => {
-
-    console.log(req.body);
     this.deleteAttachments(req.body)
-
     simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
         if (err) return console.error(err);
 
@@ -154,11 +172,21 @@ router.put('/simpleExercises', (req, res) => {
     });
 });
 
-router.post('/flashcardExercises', (req, res) => {
-    flashcardExerciseRepository.create(req.body, (err, ex) => {
-        if (err) return console.error(err);
+var addExerciseToLibrary = function (library, ex, res) {
+    library.exercises.push(ex);
+    library.save(()=> {
         res.sendStatus(200);
     });
+};
+router.post('/flashcardExercises', (req, res) => {
+    getUserLibrary(req, (err, library:ExerciseLibrary) => {
+        flashcardExerciseRepository.create(req.body, (err, ex:Exercise) => {
+            if (err) return console.error(err);
+            addExerciseToLibrary(library, ex, res);
+        });
+    });
+
+
 });
 
 router.put('/flashcardExercises', (req, res) => {

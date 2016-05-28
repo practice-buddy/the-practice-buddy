@@ -1,6 +1,8 @@
 import mongoose = require('mongoose');
 import {Schema} from "mongoose";
 
+// todo hash password
+
 export interface User extends mongoose.Document {
     name:string;
     password:string;

@@ -26,6 +26,15 @@ app.use('/exercises', exercises);
 app.use('/practiceFocus', practiceFocus);
 app.use('/auth', authService);
 
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated())return next();
+    res.send(401);
+}
+
+exercises.use(isAuthenticated);
+practiceFocus.use(isAuthenticated);
+
+
 app.use(express.static(__dirname + '/client'));
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
