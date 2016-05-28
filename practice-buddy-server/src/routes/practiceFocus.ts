@@ -1,45 +1,37 @@
 import express = require('express');
 import exercise = require('../model/practiceFocus');
+import {ExerciseLibrary} from "../model/exerciseLibrary";
+import {PracticeFocus} from "../model/practiceFocus";
+import libraryService = require('./library');
+import PracticeFocus = exercise.PracticeFocus;
+import * as _ from 'lodash';
+import {PracticeFocus} from "../model/practiceFocus";
+
+
 let router = express.Router();
 
-import PracticeFocus = exercise.PracticeFocus;
-import repository = exercise.repository;
-
-let findSinglePracticeFocus = function (res) {
-    // todo user
-    return () => {
-        repository.findOne()
-            .populate({
-                path: 'exercises',
-                // Get friends of friends - populate the 'friends' array for every friend
-                populate: {path: 'executions'}
-            })
-            .exec((err, exercises) => {
-                res.json(exercises);
-            });
-    }
-};
 router.get('/', (req, res) => {
-    repository.count({}, (err, count) => {
-        if (count === 0) {
-            repository.create({"title": "Current focus"}, findSinglePracticeFocus(res));
+    libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
+        if (library.practiceFocuses.length === 0) {
+            var practiceFocus = <PracticeFocus>{title: "Current focus"};
+            library.practiceFocuses.push(practiceFocus);
+            library.save((err, library:ExerciseLibrary)=> {
+                res.json(library.practiceFocuses[0]);
+            })
         } else {
-            findSinglePracticeFocus(res)();
+            res.json(library.practiceFocuses[0]);
         }
     });
 });
 
-router.post('/', (req, res) => {
-    repository.create(req.body, (err, ex) => {
-        if (err) return console.error(err);
-        res.sendStatus(200);
-    });
-});
-
 router.put('/', (req, res) => {
-    repository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
-        if (err) return console.error(err);
-        res.sendStatus(200);
+    libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
+        let practiceFocus:PracticeFocus = _.find(library.practiceFocuses, {id: req.body._id});
+        practiceFocus.exercises = _.map(req.body.exercises, '_id');
+        library.save((err, library) => {
+            if (err) return console.error(err);
+            res.sendStatus(200);
+        });
     });
 });
 

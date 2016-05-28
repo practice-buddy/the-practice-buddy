@@ -9,6 +9,9 @@ import mongoose = require('mongoose');
 import exercises = require('./routes/exercises');
 import practiceFocus = require('./routes/practiceFocus');
 import authService = require('./routes/authServices');
+import attachmentContent = require('./routes/attachmentContent');
+import compress = require('compression');
+
 let app = express();
 
 let db = mongoose.connect('mongodb://localhost/test');
@@ -20,11 +23,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(compress());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/exercises', exercises);
 app.use('/practiceFocus', practiceFocus);
 app.use('/auth', authService);
+app.use('/attachments', attachmentContent);
 
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated())return next();
