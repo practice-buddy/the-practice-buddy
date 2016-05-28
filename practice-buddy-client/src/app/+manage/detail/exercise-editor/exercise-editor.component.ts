@@ -29,6 +29,12 @@ export class ExerciseEditorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.uploader.onCompleteAll = () => {
+      this.exercisesService.getExercise(this.exercise._id).subscribe((updatedExercise)=> {
+        this.updateAttachments(updatedExercise);
+        this.updateExercise();
+      })
+    };
   }
 
 
@@ -41,30 +47,35 @@ export class ExerciseEditorComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-
-    this.uploader.onCompleteAll = () => {
-      this.exercisesService.getExercise(this.exercise._id).subscribe((updatedExercise)=> {
-        this.exercise.attachments.length = 0;
-        this.exercise.attachments.push(...updatedExercise.attachments);
-        this.updateExercise();
-      })
-    };
-
     if (this.uploader.getNotUploadedItems().length > 0) {
       this.uploader.uploadAll();
     } else {
       this.updateExercise();
     }
-
-
   }
 
+  private updateAttachments(updatedExercise) {
+    let originalAttachments = this.exercise.attachments.slice(0);
+    this.exercise.attachments.length = 0;
+    this.exercise.attachments.push(...updatedExercise.attachments);
+
+    _.forEach(_.filter(originalAttachments, {deleted: true}), (originalAttachment) => {
+      let correspondingAttachment = _.find(this.exercise.attachments, {_id: originalAttachment._id});
+      if (correspondingAttachment) {
+        correspondingAttachment.deleted = true;
+      }
+    });
+  };
 
 
   private updateExercise() {
     this.exercisesService.updateExercise(this.exercise).subscribe(
-      error => this.errorMessage = <any>error);
-    this.exerciseUpdated.emit(this.exercise);
+      error => {
+        this.errorMessage = <any>error;
+        this.exerciseUpdated.emit(this.exercise)
+      });
+
+
   };
 
   isFlashcardExercise() {

@@ -48,9 +48,6 @@ export class AttachmentViewComponent implements OnInit {
 
   deleteAttachment(attachment:ExerciseAttachment) {
     attachment.deleted = true;
-    this.exercisesService.deleteAttachment(this.exercise, attachment).subscribe(() => {
-      this.exercise.attachments.splice(_.indexOf(this.exercise.attachments, attachment), 1);
-    });
   }
 
 }

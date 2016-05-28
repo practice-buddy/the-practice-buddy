@@ -27,12 +27,7 @@
 
   <div class="form-group">
     <label for="fileUpload" class="col-xs-2 col-lg-1">Upload</label>
-
     <input id="fileUpload" type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>
-
-    <div class="progress" style="width: 200px">
-      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-    </div>
   </div>
 
   <attachment-view [exercise]="exercise" [editMode]="true"></attachment-view>
@@ -40,5 +35,10 @@
   <div class="form-group">
     <flashcard-editor *ngIf="isFlashcardExercise()" [exercise]="exercise"></flashcard-editor>
   </div>
-  <button type="submit" class="btn btn-default" [disabled]="!exerciseForm.form.valid">Submit</button>
+  <div class="form-group">
+    <button type="submit" class="btn btn-default" [disabled]="!exerciseForm.form.valid">Submit</button>
+    <div class="progress" style="width: 200px" [hidden]="!uploader.isUploading">
+      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+    </div>
+  </div>
 </form>

@@ -61,40 +61,6 @@ router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
     });
 });
 
-router.delete('/:exerciseId/attachments/:attachmentId', (req, res) => {
-    console.log('delete');
-    exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
-        if (err) {
-            res.sendStatus(500);
-            return;
-        }
-        if (!exercise) {
-            res.sendStatus(404);
-            return;
-        }
-        console.log('found exercise');
-        var attachmentId = req.params.attachmentId;
-        let attachment = _.find(exercise.attachments, {"id": attachmentId});
-        if (attachment) {
-            exercise.attachments.splice(_.indexOf(exercise.attachments, attachment), 1);
-            exercise.save((savedExercise)=> {
-                attachmentContentRepository.remove({_id: attachment.content}, (err) => {
-                    if (err) {
-                        res.sendStatus(500);
-                        return;
-                    } else {
-                        console.log('Attachment removed');
-                    }
-                });
-                res.json(savedExercise);
-            });
-        } else {
-            res.sendStatus(404);
-        }
-
-    });
-});
-
 
 router.get('/attachments/:attachmentId', (req, res) => {
     attachmentContentRepository.findOne({"_id": req.params.attachmentId}, (err, file) => {
@@ -158,9 +124,33 @@ router.post('/simpleExercises', (req, res) => {
     });
 });
 
+
+let deleteAttachment = function (exercise, attachment) {
+    attachmentContentRepository.findByIdAndRemove(attachment.content, (err) => {
+        if (err) {
+            console.log('Could not delete file: ' + attachment + ' error:'  + err);
+        }
+    });
+};
+
+this.deleteAttachments = function (body:any):void {
+    _.forEach(body.attachments, (attachment) => {
+        if (attachment.deleted) {
+            deleteAttachment(body, attachment)
+        }
+    });
+
+    body.attachments = _.reject(body.attachments, {deleted: true})
+}
+
 router.put('/simpleExercises', (req, res) => {
+
+    console.log(req.body);
+    this.deleteAttachments(req.body)
+
     simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
         if (err) return console.error(err);
+
         res.sendStatus(200);
     });
 });
@@ -173,6 +163,9 @@ router.post('/flashcardExercises', (req, res) => {
 });
 
 router.put('/flashcardExercises', (req, res) => {
+
+    this.deleteAttachments(req.body)
+
     flashcardExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
         if (err) return console.error(err);
         res.sendStatus(200);

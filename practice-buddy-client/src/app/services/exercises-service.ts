@@ -84,9 +84,4 @@ export class ExercisesService {
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
-
-  deleteAttachment(exercise:Exercise, attachment:ExerciseAttachment):Observable<Exercise>  {
-    return this.http.delete(this.exercisesUrl + '/' + exercise._id + '/' + this.attachmentUrl + '/' + attachment._id)
-      .catch(this.handleError);
-  }
 }
