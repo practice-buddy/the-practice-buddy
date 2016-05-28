@@ -3,11 +3,11 @@ import {Exercise} from "../../model/exercise";
 import {Dragula, DragulaService} from "ng2-dragula/ng2-dragula";
 import {PracticeFocusService} from "../../services/practice-focus-service";
 import {PracticeFocus} from "../../model/practice-focus";
-import {ExercisesService} from "../../services/exercices-service";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/forkJoin";
 import * as _ from "lodash";
 import {CreateNewExerciseComponent} from "./create-new-exercise/create-new-exercise.component";
+import {ExercisesService} from "../../services/exercises-service";
 
 @Component({
   moduleId: module.id,
@@ -39,7 +39,7 @@ export class LibraryListComponent implements OnInit {
 
   private fetchData() {
     Observable.forkJoin(
-      this.exercisesService.getExercise(),
+      this.exercisesService.getExercises(),
       this.exercisesFocusService.getExerciseFocus()
     ).subscribe(
       data => {

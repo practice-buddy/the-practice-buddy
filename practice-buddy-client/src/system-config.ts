@@ -6,7 +6,9 @@ const map:any = {
   'ng2-dragula': 'vendor/ng2-dragula',
   'dragula': 'vendor/dragula',
   'lodash': 'vendor/lodash',
-  'showdown': 'vendor/showdown'
+  'showdown': 'vendor/showdown',
+  'ng2-file-upload': 'vendor/ng2-file-upload',
+
 };
 
 /** User packages configuration. */
@@ -14,7 +16,8 @@ const packages:any = {
   'ng2-dragula': {'main': 'ng2-dragula.js'},
   'dragula': {'main': 'dist/dragula.js'},
   'lodash': {'main': 'lodash.js'},
-  'showdown': {'main': 'dist/showdown.min.js'}
+  'showdown': {'main': 'dist/showdown.min.js'},
+  'ng2-file-upload': {'main': 'ng2-file-upload.js'}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,6 +54,12 @@ const barrels:string[] = [
   'app/shared/exercise-detail-view',
   'app/shared/markdown-view',
   'app/shared/exercise-view',
+  'app/shared/audio-player',
+  'app/+execute/execute-exercise/flashcard',
+  'app/+execute/execute-exercise/flashcard-execution',
+  'app/+manage/detail/flashcard-editor',
+  'app/+manage/detail/exercise-editor',
+  'app/shared/attachment-view',
   /** @cli-barrel */
 ];
 

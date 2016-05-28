@@ -1,14 +1,15 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {Exercise} from "../../model/exercise";
-import {ExercisesService} from "../../services/exercices-service";
+import {ExercisesService} from "../../services/exercises-service";
 import {ExerciseViewComponent} from "../../shared/exercise-view/exercise-view.component";
+import {ExerciseEditorComponent} from "./exercise-editor/exercise-editor.component";
 
 @Component({
   moduleId: module.id,
   selector: 'manage-detail',
   templateUrl: 'detail.component.html',
   styleUrls: ['detail.component.css'],
-  directives: [ExerciseViewComponent]
+  directives: [ExerciseViewComponent, ExerciseEditorComponent]
 })
 export class DetailComponent implements OnInit {
 
@@ -16,18 +17,9 @@ export class DetailComponent implements OnInit {
 
   @Input() exercise:Exercise;
 
-  private errorMessage;
-
-  constructor(private exercisesService:ExercisesService) {
-  }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    console.log(this.exercise);
-    this.exercisesService.updateExercise(this.exercise).subscribe(
-      error => this.errorMessage = <any>error);
-    this.editMode = false;
-  }
+
 }

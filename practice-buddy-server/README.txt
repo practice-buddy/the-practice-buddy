@@ -20,3 +20,8 @@ curl -H "Content-Type: application/json" -X PUT -d '{"_id":"573eda74bd6ba04416ad
 
 Insert execution
 curl -H "Content-Type: application/json" -X POST -d '{"personalPerformanceRating": 9}' http://localhost:3011/exercises/573eda74bd6ba04416adbe9b/execution
+
+
+
+curl -H "Content-Type: application/json" -X POST -d '{"title":"The Flashcard","flashcardGroups":[{"flashcards":["C","D","E","F","G","A","H" ]}, {"flashcards": ["#", "Natural", "b" ]  },  {"flashcards":["Dur", "Moll"]}]}' http://localhost:3011/exercises/flashcardExercises
+
