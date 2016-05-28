@@ -3,6 +3,8 @@ import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Exercise} from "../model/exercise";
 import {ExerciseType} from "../model/exercise-type";
+import {ExerciseAttachment} from "../model/exerciseAttachments";
+
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
@@ -16,6 +18,7 @@ export class ExercisesService {
   private exercisesUrl = 'exercises';
   private simpleExercisesUrl = this.exercisesUrl + '/simpleExercises';
   private flashcardExercisesUrl = this.exercisesUrl + '/flashcardExercises';
+  private attachmentUrl = 'attachments';
 
   private typeToUrlMap:Map<string, string> = new Map<string, string>();
 
@@ -24,8 +27,8 @@ export class ExercisesService {
     this.typeToUrlMap.set(ExerciseType.SimpleExercise, this.simpleExercisesUrl);
   }
 
-  getExercise(id: number):Observable<Exercise> {
-    return this.http.get( this.exercisesUrl + "/" + id)
+  getExercise(id:number):Observable<Exercise> {
+    return this.http.get(this.exercisesUrl + "/" + id)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -44,7 +47,7 @@ export class ExercisesService {
       .catch(this.handleError);
   }
 
-  private getUrlForExerciseType(exercise: Exercise) {
+  private getUrlForExerciseType(exercise:Exercise) {
     let url = this.typeToUrlMap.get(exercise.type);
     if (!url) throw new Error('Unknown Exercise Type');
     return url;
@@ -80,5 +83,10 @@ export class ExercisesService {
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
+  }
+
+  deleteAttachment(exercise:Exercise, attachment:ExerciseAttachment):Observable<Exercise>  {
+    return this.http.delete(this.exercisesUrl + '/' + exercise._id + '/' + this.attachmentUrl + '/' + attachment._id)
+      .catch(this.handleError);
   }
 }

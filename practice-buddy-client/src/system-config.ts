@@ -59,6 +59,7 @@ const barrels:string[] = [
   'app/+execute/execute-exercise/flashcard-execution',
   'app/+manage/detail/flashcard-editor',
   'app/+manage/detail/exercise-editor',
+  'app/shared/attachment-view',
   /** @cli-barrel */
 ];
 

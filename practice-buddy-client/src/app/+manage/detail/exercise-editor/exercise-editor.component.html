@@ -22,12 +22,20 @@
 
   </div>
 
-  <div>
-    <input type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>
-    <div class="progress" style="">
+
+  <h4>Attachments</h4>
+
+  <div class="form-group">
+    <label for="fileUpload" class="col-xs-2 col-lg-1">Upload</label>
+
+    <input id="fileUpload" type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>
+
+    <div class="progress" style="width: 200px">
       <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
     </div>
   </div>
+
+  <attachment-view [exercise]="exercise" [editMode]="true"></attachment-view>
 
   <div class="form-group">
     <flashcard-editor *ngIf="isFlashcardExercise()" [exercise]="exercise"></flashcard-editor>

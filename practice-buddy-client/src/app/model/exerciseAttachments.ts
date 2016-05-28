@@ -3,4 +3,5 @@ export interface ExerciseAttachment {
   mimetype:string;
   name:string;
   content:string[];
+  deleted:boolean
 }

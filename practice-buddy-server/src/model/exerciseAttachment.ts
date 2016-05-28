@@ -3,9 +3,9 @@ import {Schema} from "mongoose";
 import {AttachmentContent} from "./attachmentContent";
 
 export interface ExerciseAttachment {
-    _id?;
-    mimetype:String;
-    name:String;
+    _id?: string;
+    mimetype:string;
+    name:string;
     content:AttachmentContent;
 }
 

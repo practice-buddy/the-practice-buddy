@@ -61,8 +61,47 @@ router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
     });
 });
 
+router.delete('/:exerciseId/attachments/:attachmentId', (req, res) => {
+    console.log('delete');
+    exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
+        if (err) {
+            res.sendStatus(500);
+            return;
+        }
+        if (!exercise) {
+            res.sendStatus(404);
+            return;
+        }
+        console.log('found exercise');
+        var attachmentId = req.params.attachmentId;
+        let attachment = _.find(exercise.attachments, {"id": attachmentId});
+        if (attachment) {
+            exercise.attachments.splice(_.indexOf(exercise.attachments, attachment), 1);
+            exercise.save((savedExercise)=> {
+                attachmentContentRepository.remove({_id: attachment.content}, (err) => {
+                    if (err) {
+                        res.sendStatus(500);
+                        return;
+                    } else {
+                        console.log('Attachment removed');
+                    }
+                });
+                res.json(savedExercise);
+            });
+        } else {
+            res.sendStatus(404);
+        }
+
+    });
+});
+
+
 router.get('/attachments/:attachmentId', (req, res) => {
     attachmentContentRepository.findOne({"_id": req.params.attachmentId}, (err, file) => {
+        if (err || !file) {
+            res.sendStatus(404);
+            return;
+        }
         var total = file.buffer.length;
         if (req.headers.range) {
             var range = req.headers.range;
@@ -73,8 +112,8 @@ router.get('/attachments/:attachmentId', (req, res) => {
             var start = parseInt(partialstart, 10);
             var end = partialend ? parseInt(partialend, 10) : total - 1;
 
-            if(_.isNaN(end)) {
-                end = total-1;
+            if (_.isNaN(end)) {
+                end = total - 1;
             }
 
 

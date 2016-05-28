@@ -1,23 +1,28 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Exercise} from "../../model/exercise";
 import {MarkdownViewComponent} from "../markdown-view/markdown-view.component";
 import {AudioPlayerComponent} from "../audio-player/audio-player.component";
+import {ExerciseAttachment} from "../../model/exerciseAttachments";
+import {ExercisesService} from "../../services/exercises-service";
+import {AttachmentViewComponent} from "../attachment-view/attachment-view.component";
+
 
 @Component({
   moduleId: module.id,
   selector: 'exercise-view',
   templateUrl: 'exercise-view.component.html',
   styleUrls: ['exercise-view.component.css'],
-  directives: [MarkdownViewComponent, AudioPlayerComponent]
+  directives: [MarkdownViewComponent, AttachmentViewComponent]
 })
-export class ExerciseViewComponent implements OnInit {
+export class ExerciseViewComponent {
+
 
   @Input() exercise:Exercise;
+
+  private audiofiles:ExerciseAttachment[] = [];
 
   constructor() {
   }
 
-  ngOnInit() {
-  }
 
 }

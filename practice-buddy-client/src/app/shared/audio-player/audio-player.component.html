@@ -1,0 +1,4 @@
+<input #playbackrate type="range" value="100" (change)="setPlaySpeed(playbackrate.value)" style="width: 300px">
+<audio controls #player preload="auto">
+  <source [src]="src" type="audio/mpeg">
+</audio>

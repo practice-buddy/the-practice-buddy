@@ -5,12 +5,14 @@ import {ExerciseType} from "../../../model/exercise-type";
 import {FlashcardEditorComponent} from "../flashcard-editor/flashcard-editor.component";
 import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 import * as _ from 'lodash';
+import {ExerciseAttachment} from "../../../model/exerciseAttachments";
+import {AttachmentViewComponent} from "../../../shared/attachment-view/attachment-view.component";
 
 @Component({
   moduleId: module.id,
   selector: 'exercise-editor',
   templateUrl: 'exercise-editor.component.html',
-  directives: [FlashcardEditorComponent, FILE_UPLOAD_DIRECTIVES],
+  directives: [FlashcardEditorComponent, FILE_UPLOAD_DIRECTIVES, AttachmentViewComponent],
 
   styleUrls: ['exercise-editor.component.css']
 })
@@ -31,7 +33,11 @@ export class ExerciseEditorComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(event:any) {
-    this.uploader.setOptions({url: '/exercises/' + this.exercise._id + '/attachments'})
+    if (this.exercise) {
+      this.uploader.setOptions({url: '/exercises/' + this.exercise._id + '/attachments'});
+    } else {
+      this.uploader.setOptions({});
+    }
   }
 
   onSubmit() {
@@ -52,6 +58,8 @@ export class ExerciseEditorComponent implements OnInit, OnChanges {
 
 
   }
+
+
 
   private updateExercise() {
     this.exercisesService.updateExercise(this.exercise).subscribe(
