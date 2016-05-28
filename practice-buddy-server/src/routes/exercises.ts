@@ -1,6 +1,7 @@
 import express = require('express');
 import fs = require('fs');
-import multer  = require('multer')
+import multer  = require('multer');
+import * as _ from 'lodash';
 let upload = multer();
 
 import exercise = require('../model/exercise');
@@ -9,7 +10,7 @@ import flashcardExercise = require('../model/flashcardExercise');
 import exerciseExecution = require('../model/exerciseExecution');
 import flashcardGroup = require('../model/flashcardGroup');
 import attachmentContent = require('../model/attachmentContent');
-import * as _ from 'lodash';
+
 import {ExerciseAttachment} from "../model/exerciseAttachment";
 let router = express.Router();
 
@@ -81,8 +82,6 @@ router.get('/attachments/:attachmentId', (req, res) => {
             if (_.isNaN(end)) {
                 end = total - 1;
             }
-
-
             var chunksize = (end - start) + 1;
             res.writeHead(206, {
                 'Content-Range': 'bytes ' + start + '-' + end + '/' + total,

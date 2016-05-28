@@ -8,10 +8,11 @@ import bodyParser = require('body-parser');
 import mongoose = require('mongoose');
 import exercises = require('./routes/exercises');
 import practiceFocus = require('./routes/practiceFocus');
+import authService = require('./routes/authServices');
 let app = express();
 
-
-mongoose.connect('mongodb://localhost/test');
+let db = mongoose.connect('mongodb://localhost/test');
+require('./routes/auth')(app, db);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/exercises', exercises);
 app.use('/practiceFocus', practiceFocus);
+app.use('/auth', authService);
 
 app.use(express.static(__dirname + '/client'));
 app.get('/', function(req, res){

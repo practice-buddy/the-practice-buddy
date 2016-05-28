@@ -15,11 +15,13 @@ export class LoginComponent implements OnInit {
 
   private user:User;
 
-
   login(name:string) {
-    console.log("Login Component "+ name);
-    this.userService.setUser(this.user)
-    this.router.navigate(['/manage']);
+    this.userService.setUser(this.user).subscribe(() => {
+      this.router.navigate(['/manage']);
+    }, error => {
+      console.log(error);
+    })
+
   }
 
 

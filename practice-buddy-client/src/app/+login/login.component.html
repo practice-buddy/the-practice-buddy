@@ -2,11 +2,13 @@
   <div class="container">
 
     <div class="float-left">
-      <input type="text" class="form-control input-size" required placeholder="Your name buddy"
-             [(ngModel)]="user.name">
+      <input type="text" class="form-control input-size" required placeholder="Name"
+             [(ngModel)]="user.username">
+      <input type="text" class="form-control input-size" required placeholder="Password"
+             [(ngModel)]="user.password">
     </div>
     <div class="input-group-btn">
-      <button type="submit" class="btn btn-default button-size" (click)="login(user.name)">
+      <button type="submit" class="btn btn-default button-size" (click)="login()">
         <div class="glyphicon glyphicon-ok"></div>
       </button>
     </div>
