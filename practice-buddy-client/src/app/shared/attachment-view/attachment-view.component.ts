@@ -39,7 +39,7 @@ export class AttachmentViewComponent implements OnInit {
   }
 
   getStreamingUrl(audiofile:ExerciseAttachment) {
-    return '/exercises/attachments/' + audiofile.content;
+    return '/attachments/' + audiofile.content;
   }
 
   getAttachmentTitle(attachment:ExerciseAttachment) {

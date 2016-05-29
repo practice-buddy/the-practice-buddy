@@ -28,9 +28,15 @@ export class CreateNewExerciseComponent implements OnInit {
 
   onSubmit() {
     this.exercisesService.createExercise(this.newExercise).subscribe(
-      error => this.errorMessage = <any>error);
-    this.ngOnInit();
-    this.exerciseCreated.emit(null);
+      exercise => {
+        this.ngOnInit();
+        this.exerciseCreated.emit(null);
+      },
+      error => {
+        this.errorMessage = <any>error;
+      }
+    );
+
   }
 
 }

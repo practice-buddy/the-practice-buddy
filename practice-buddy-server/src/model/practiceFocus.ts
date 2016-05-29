@@ -7,9 +7,8 @@ export interface PracticeFocus extends mongoose.Document {
     exercises:Exercise[];
 }
 
-let PracticeFocusSchema = new mongoose.Schema({
+export let PracticeFocusSchema = new mongoose.Schema({
     title: {type: String, required: true},
     exercises: [{type: Schema.Types.ObjectId, ref: 'Exercise'}]
 });
 
-export let repository = mongoose.model<PracticeFocus>('PracticeFocus', PracticeFocusSchema);

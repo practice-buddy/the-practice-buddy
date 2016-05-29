@@ -1,8 +1,7 @@
 import mongoose = require('mongoose');
-import {ExerciseExecution} from "./exerciseExecution";
+import {ExerciseExecution, ExerciseExecutionSchema} from "./exerciseExecution";
 import {Schema} from "mongoose";
-import {ExerciseAttachment} from "./exerciseAttachment";
-import {ExerciseAttachmentSchema} from "./exerciseAttachment";
+import {ExerciseAttachmentSchema, ExerciseAttachment} from "./exerciseAttachment";
 
 export interface Exercise extends mongoose.Document {
     title:string;
@@ -15,7 +14,7 @@ var options = {discriminatorKey: 'type'};
 let ExerciseSchema = new mongoose.Schema({
     title: {type: String, required: true},
     labels: [String],
-    executions: [{type: Schema.Types.ObjectId, ref: 'ExerciseExecution'}],
+    executions: [ExerciseExecutionSchema],
     attachments: [ExerciseAttachmentSchema]
 }, options);
 
