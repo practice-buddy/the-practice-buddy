@@ -1,6 +1,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
     <div class="panel-title"><h4>{{exercise.title}}</h4></div>
+    <label-editor [exercise]="exercise" [editMode]="false"></label-editor>
   </div>
   <div class="panel-body">
     <markdown-view [markdown]="exercise.text"></markdown-view>

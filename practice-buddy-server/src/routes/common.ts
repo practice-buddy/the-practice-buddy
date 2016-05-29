@@ -8,7 +8,6 @@ export let config = function () {
 
 
 export let isAuthenticated = (req, res, next) => {
-    console.log('check')
     if (req.isAuthenticated())return next();
     res.send(401);
 };

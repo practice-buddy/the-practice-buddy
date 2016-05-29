@@ -5,6 +5,7 @@ import {AudioPlayerComponent} from "../audio-player/audio-player.component";
 import {ExerciseAttachment} from "../../model/exerciseAttachments";
 import {ExercisesService} from "../../services/exercises-service";
 import {AttachmentViewComponent} from "../attachment-view/attachment-view.component";
+import {LabelEditorComponent} from "../../+manage/detail/exercise-editor/label-editor/label-editor.component";
 
 
 @Component({
@@ -12,7 +13,7 @@ import {AttachmentViewComponent} from "../attachment-view/attachment-view.compon
   selector: 'exercise-view',
   templateUrl: 'exercise-view.component.html',
   styleUrls: ['exercise-view.component.css'],
-  directives: [MarkdownViewComponent, AttachmentViewComponent]
+  directives: [MarkdownViewComponent, AttachmentViewComponent, LabelEditorComponent]
 })
 export class ExerciseViewComponent {
 

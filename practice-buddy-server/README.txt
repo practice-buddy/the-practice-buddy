@@ -44,7 +44,7 @@ Test commands
 
 Create/Update exercise
 curl -H "Content-Type: application/json" -X POST -d '{"title":"sadhfksadhfk", "labels":["Rock"]}' http://localhost:3011/exercises/simpleExercises
-curl -H "Content-Type: application/json" -X PUT -d '{"_id":"573eda74bd6ba04416adbe9b", "title":"sadhfksadhfk", "labels":["Rock"]}' http://localhost:3011/exercises/simpleExercises
+curl -H "Content-Type: application/json" -X POST -d '{"_id":"573eda74bd6ba04416adbe9b", "title":"sadhfksadhfk", "labels":["Rock"]}' http://localhost:3011/exercises/simpleExercises
 
 Insert execution
 curl -H "Content-Type: application/json" -X POST -d '{"personalPerformanceRating": 9}' http://localhost:3011/exercises/573eda74bd6ba04416adbe9b/execution

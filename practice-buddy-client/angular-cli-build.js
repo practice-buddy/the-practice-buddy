@@ -17,7 +17,9 @@ module.exports = function(defaults) {
       'dragula/dist/dragula.css',
       'lodash/**/*.js',
       'showdown/dist/showdown.min.+(js|js.map)',
-      'ng2-file-upload/**/*.+(js|js.map)'
+      'ng2-file-upload/**/*.+(js|js.map)',
+      'ng2-bootstrap/**/*.+(js|js.map)',
+      'moment/**/*.+(js|js.map)'
     ]
   });
 };

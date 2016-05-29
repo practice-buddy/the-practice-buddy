@@ -1,0 +1,13 @@
+<form *ngIf="editMode"  class="form-inline">
+  <input [(ngModel)]="selected"
+         [typeahead]="labelSuggestions"
+         class="form-control">
+
+  <button type="submit" class="btn btn-default form-control"
+          (click)="addSelectedLabel()">
+    <div class="glyphicon glyphicon-plus"></div>
+  </button>
+</form>
+
+<span *ngFor="let label of exercise.labels" class="badge">{{label}} <div *ngIf="editMode" class="glyphicon glyphicon-remove" (click)="removeLabel(label)"></div>
+</span>

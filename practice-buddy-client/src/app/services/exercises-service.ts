@@ -72,6 +72,12 @@ export class ExercisesService {
       .catch(this.handleError);
   }
 
+  getLabels():Observable<string[]> {
+    return this.http.get(this.exercisesUrl + '/labels')
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res:Response) {
     return res.json();
   }
@@ -84,4 +90,6 @@ export class ExercisesService {
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
+
+
 }

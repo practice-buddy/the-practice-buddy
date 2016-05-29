@@ -8,6 +8,8 @@ const map:any = {
   'lodash': 'vendor/lodash',
   'showdown': 'vendor/showdown',
   'ng2-file-upload': 'vendor/ng2-file-upload',
+  'ng2-bootstrap': 'vendor/ng2-bootstrap',
+  'moment': 'vendor/moment',
 
 };
 
@@ -17,7 +19,9 @@ const packages:any = {
   'dragula': {'main': 'dist/dragula.js'},
   'lodash': {'main': 'lodash.js'},
   'showdown': {'main': 'dist/showdown.min.js'},
-  'ng2-file-upload': {'main': 'ng2-file-upload.js'}
+  'ng2-file-upload': {'main': 'ng2-file-upload.js'},
+  'ng2-bootstrap': {'main': 'ng2-bootstrap.js'},
+  'moment': {'main': 'moment.js'}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +64,7 @@ const barrels:string[] = [
   'app/+manage/detail/flashcard-editor',
   'app/+manage/detail/exercise-editor',
   'app/shared/attachment-view',
+  'app/+manage/detail/exercise-editor/label-editor',
   /** @cli-barrel */
 ];
 

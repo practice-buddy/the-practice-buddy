@@ -26,6 +26,18 @@ import ExerciseExecution  = exerciseExecution.ExerciseExecution;
 export let exerciseRouter = express.Router();
 exerciseRouter.use(isAuthenticated);
 
+
+exerciseRouter.get('/labels', (req, res) => {
+    libraryService.getOrCreateLibrary(req, (err, library: ExerciseLibrary)=> {
+        var result = _.reduce(library.exercises, (labels: string[], exericse: Exercise)=> {
+            labels.push(...exericse.labels)
+            return labels;
+        }, []);
+        res.json(result);
+    });
+});
+
+
 exerciseRouter.get('/', (req, res) => {
     libraryService.getOrCreateLibrary(req, (err, library) => {
         res.json(library.exercises)

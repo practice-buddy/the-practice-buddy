@@ -7,12 +7,13 @@ import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 import * as _ from 'lodash';
 import {ExerciseAttachment} from "../../../model/exerciseAttachments";
 import {AttachmentViewComponent} from "../../../shared/attachment-view/attachment-view.component";
+import {LabelEditorComponent} from "./label-editor/label-editor.component";
 
 @Component({
   moduleId: module.id,
   selector: 'exercise-editor',
   templateUrl: 'exercise-editor.component.html',
-  directives: [FlashcardEditorComponent, FILE_UPLOAD_DIRECTIVES, AttachmentViewComponent],
+  directives: [FlashcardEditorComponent, FILE_UPLOAD_DIRECTIVES, AttachmentViewComponent, LabelEditorComponent],
 
   styleUrls: ['exercise-editor.component.css']
 })

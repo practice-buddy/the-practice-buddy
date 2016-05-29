@@ -7,6 +7,7 @@ export class Exercise {
 
   public executions:ExerciseExecution[] = [];
   public attachments:ExerciseAttachment[] = [];
+  public labels:string[] = [];
   public text:string;
 
   public type:string = ExerciseType.SimpleExercise;
