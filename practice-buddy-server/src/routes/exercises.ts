@@ -21,7 +21,6 @@ import exerciseRepository = exercise.repository;
 import simpleExerciseRepository = simpleExercise.simpleRepository;
 import flashcardExerciseRepository = flashcardExercise.flashcardRepository;
 
-import executionRepository  = exerciseExecution.repository;
 import ExerciseExecution  = exerciseExecution.ExerciseExecution;
 
 export let exerciseRouter = express.Router();
@@ -36,6 +35,44 @@ exerciseRouter.get('/', (req, res) => {
 exerciseRouter.get('/:exerciseId', (req, res) => {
     exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
         res.json(exercise);
+    });
+});
+
+
+exerciseRouter.post('/simpleExercises', (req, res) => {
+    libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
+        simpleExerciseRepository.create(req.body, (err, ex) => {
+            if (err) return console.error(err);
+            libraryService.addExerciseToLibrary(library, ex, res);
+        });
+    });
+});
+
+
+exerciseRouter.put('/simpleExercises', (req, res) => {
+    deleteAttachments(req.body)
+    simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
+        if (err) return console.error(err);
+
+        res.sendStatus(200);
+    });
+});
+
+
+exerciseRouter.post('/flashcardExercises', (req, res) => {
+    libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
+        flashcardExerciseRepository.create(req.body, (err, ex:Exercise) => {
+            if (err) return console.error(err);
+            libraryService.addExerciseToLibrary(library, ex, res);
+        });
+    });
+});
+
+exerciseRouter.put('/flashcardExercises', (req, res) => {
+    deleteAttachments(req.body)
+    flashcardExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
+        if (err) return console.error(err);
+        res.sendStatus(200);
     });
 });
 
@@ -64,28 +101,16 @@ exerciseRouter.post('/:exerciseId/attachments', upload.any(), (req, res) => {
 
 exerciseRouter.post('/:exerciseId/execution', (req, res) => {
     exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
-        let newExecution = {
+        let newExecution = <ExerciseExecution>{
             "date": new Date(),
             "personalPerformanceRating": req.body.personalPerformanceRating
         };
-        executionRepository.create(newExecution, (err, execution) => {
-            exercise.executions.unshift(execution);
-            exercise.save((err) => {
-                res.sendStatus(err ? 500 : 200)
-            });
-        })
-    });
-});
-
-exerciseRouter.post('/simpleExercises', (req, res) => {
-    libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
-        simpleExerciseRepository.create(req.body, (err, ex) => {
-            if (err) return console.error(err);
-            libraryService.addExerciseToLibrary(library, ex, res);
+        exercise.executions.unshift(newExecution);
+        exercise.save((err) => {
+            res.sendStatus(err ? 500 : 200)
         });
     });
 });
-
 
 let deleteAttachments = function (body:any):void {
     _.forEach(body.attachments, (attachment) => {
@@ -96,30 +121,3 @@ let deleteAttachments = function (body:any):void {
 
     body.attachments = _.reject(body.attachments, {deleted: true})
 }
-
-exerciseRouter.put('/simpleExercises', (req, res) => {
-    deleteAttachments(req.body)
-    simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
-        if (err) return console.error(err);
-
-        res.sendStatus(200);
-    });
-});
-
-
-exerciseRouter.post('/flashcardExercises', (req, res) => {
-    libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
-        flashcardExerciseRepository.create(req.body, (err, ex:Exercise) => {
-            if (err) return console.error(err);
-            libraryService.addExerciseToLibrary(library, ex, res);
-        });
-    });
-});
-
-exerciseRouter.put('/flashcardExercises', (req, res) => {
-    deleteAttachments(req.body)
-    flashcardExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
-        if (err) return console.error(err);
-        res.sendStatus(200);
-    });
-});
