@@ -1,6 +1,4 @@
 import exerciseLibrary = require('../model/exerciseLibrary');
-
-
 import exerciseLibraryRepository = exerciseLibrary.repository;
 
 export let getOrCreateLibrary = (req, callback) => {

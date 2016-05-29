@@ -2,10 +2,9 @@
   <h1>I'm your dear practice buddy
     <small>love me!</small>
   </h1>
+  <a *ngIf="isLoggedIn" href="#" (click)="logout()">Logout</a>
 </div>
-
-<ul class="nav nav-tabs" *ngIf="loggedin()">
-
+<ul class="nav nav-tabs" *ngIf="isLoggedIn">
   <li role="presentation"><a [routerLink]="['/manage']">manage</a></li>
   <li role="presentation"><a [routerLink]="['/execute']">execute</a></li>
 </ul>

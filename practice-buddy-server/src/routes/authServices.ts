@@ -1,10 +1,11 @@
 let mongoose = require('mongoose');
 let express = require('express');
-let router = express.Router();
 let passport = require('passport');
 let user = require('../model/user');
 import bcrypt = require('bcrypt-nodejs');
+import {isAuthenticated} from './common';
 
+export let authRouter = express.Router();
 
 
 passport.serializeUser(function (user, done) {
@@ -17,20 +18,16 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated())return next();
-    res.send(401);
-}
-
-router.post('/login', passport.authenticate('local'), function (req, res) {
+authRouter.post('/login', passport.authenticate('local'), function (req, res) {
     res.json(req.user);
 });
 
-router.get('/currentuser', isAuthenticated, function (req, res) {
+authRouter.get('/currentuser', isAuthenticated, function (req, res) {
     res.json(req.user);
 });
 
-router.post('/signup', function (req, res) {
+
+authRouter.post('/signup', function (req, res) {
 
     var u = {
         name: req.body.name,
@@ -46,10 +43,7 @@ router.post('/signup', function (req, res) {
     });
 });
 
-router.get('/logout', function (req, res) {
-    console.log('logout');
+authRouter.get('/logout', function (req, res) {
     req.logout();
     res.send(200);
 });
-
-module.exports = router;

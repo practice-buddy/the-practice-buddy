@@ -5,7 +5,6 @@ import {Http, Response, Headers, RequestOptions} from "@angular/http";
 
 @Injectable()
 export class UserService {
-  private user:User;
   private authUrl = '/auth';
 
 
@@ -19,7 +18,6 @@ export class UserService {
     let url = this.authUrl + "/login";
     return this.http.post(url, body, options)
       .catch(this.handleError);
-
   }
 
   private handleError(error:any) {
@@ -31,7 +29,14 @@ export class UserService {
     return Observable.throw(errMsg);
   }
 
-  getUser():User {
-    return this.user;
+  getUser():Observable<User> {
+    return this.http.get(this.authUrl + "/currentuser")
+      .catch(this.handleError);
   }
+
+  logout():Observable<Response> {
+    return this.http.get(this.authUrl + "/logout")
+      .catch(this.handleError);
+  }
+
 }

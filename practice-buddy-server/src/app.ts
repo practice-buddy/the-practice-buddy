@@ -6,16 +6,20 @@ import logger = require('morgan');
 import cookieParser = require('cookie-parser');
 import bodyParser = require('body-parser');
 import mongoose = require('mongoose');
-import exercises = require('./routes/exercises');
-import practiceFocus = require('./routes/practiceFocus');
-import authService = require('./routes/authServices');
-import attachmentContent = require('./routes/attachmentContent');
+
+import {attachmentContentRouter} from './routes/attachmentContent';
+import {exerciseRouter} from './routes/exercises';
+import {authRouter} from './routes/authServices';
+import {practiceFocusRouter} from './routes/practiceFocus';
+
 import compress = require('compression');
+import {config} from './routes/common';
+import {initAuth} from './routes/auth';
 
 let app = express();
 
-let db = mongoose.connect('mongodb://localhost/test');
-require('./routes/auth')(app, db);
+mongoose.connect(config().mongodbUrl);
+initAuth(app);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -25,20 +29,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(compress());
 
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/exercises', exercises);
-app.use('/practiceFocus', practiceFocus);
-app.use('/auth', authService);
-app.use('/attachments', attachmentContent);
+app.use('/exercises', exerciseRouter);
+app.use('/practiceFocus', practiceFocusRouter);
+app.use('/auth', authRouter);
+app.use('/attachments', attachmentContentRouter);
 
-function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated())return next();
-    res.send(401);
-}
 
-exercises.use(isAuthenticated);
-practiceFocus.use(isAuthenticated);
 
 
 app.use(express.static(__dirname + '/client'));

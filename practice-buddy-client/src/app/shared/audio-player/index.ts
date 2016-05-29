@@ -1,1 +1,1 @@
-export { AudioPlayerComponent } from './audio-player.component.ts';
+export { AudioPlayerComponent } from './audio-player.component';

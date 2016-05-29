@@ -4,6 +4,7 @@ import multer  = require('multer');
 import * as _ from 'lodash';
 import {ExerciseLibrary} from "../model/exerciseLibrary";
 let upload = multer();
+import {isAuthenticated} from './common';
 
 import exercise = require('../model/exercise');
 import simpleExercise = require('../model/simpleExercise');
@@ -14,7 +15,6 @@ import libraryService = require('./library');
 import attachmentService = require('./attachmentContent');
 
 import {ExerciseAttachment} from "../model/exerciseAttachment";
-let router = express.Router();
 
 import Exercise = exercise.Exercise;
 import exerciseRepository = exercise.repository;
@@ -24,19 +24,22 @@ import flashcardExerciseRepository = flashcardExercise.flashcardRepository;
 import executionRepository  = exerciseExecution.repository;
 import ExerciseExecution  = exerciseExecution.ExerciseExecution;
 
-router.get('/', (req, res) => {
+export let exerciseRouter = express.Router();
+exerciseRouter.use(isAuthenticated);
+
+exerciseRouter.get('/', (req, res) => {
     libraryService.getOrCreateLibrary(req, (err, library) => {
         res.json(library.exercises)
     });
 });
 
-router.get('/:exerciseId', (req, res) => {
+exerciseRouter.get('/:exerciseId', (req, res) => {
     exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
         res.json(exercise);
     });
 });
 
-router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
+exerciseRouter.post('/:exerciseId/attachments', upload.any(), (req, res) => {
     exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
         _.forEach(req.files, (file) => {
             attachmentService.createAttachmentContent(file,
@@ -59,8 +62,7 @@ router.post('/:exerciseId/attachments', upload.any(), (req, res) => {
     });
 });
 
-router.post('/:exerciseId/execution', (req, res) => {
-    console.log('exerciseId: ' + req.params.exerciseId);
+exerciseRouter.post('/:exerciseId/execution', (req, res) => {
     exerciseRepository.findOne({"_id": req.params.exerciseId}, (err, exercise) => {
         let newExecution = {
             "date": new Date(),
@@ -75,7 +77,7 @@ router.post('/:exerciseId/execution', (req, res) => {
     });
 });
 
-router.post('/simpleExercises', (req, res) => {
+exerciseRouter.post('/simpleExercises', (req, res) => {
     libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
         simpleExerciseRepository.create(req.body, (err, ex) => {
             if (err) return console.error(err);
@@ -85,7 +87,7 @@ router.post('/simpleExercises', (req, res) => {
 });
 
 
-this.deleteAttachments = function (body:any):void {
+let deleteAttachments = function (body:any):void {
     _.forEach(body.attachments, (attachment) => {
         if (attachment.deleted) {
             attachmentService.deleteAttachment(body, attachment)
@@ -95,8 +97,8 @@ this.deleteAttachments = function (body:any):void {
     body.attachments = _.reject(body.attachments, {deleted: true})
 }
 
-router.put('/simpleExercises', (req, res) => {
-    this.deleteAttachments(req.body)
+exerciseRouter.put('/simpleExercises', (req, res) => {
+    deleteAttachments(req.body)
     simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
         if (err) return console.error(err);
 
@@ -105,7 +107,7 @@ router.put('/simpleExercises', (req, res) => {
 });
 
 
-router.post('/flashcardExercises', (req, res) => {
+exerciseRouter.post('/flashcardExercises', (req, res) => {
     libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
         flashcardExerciseRepository.create(req.body, (err, ex:Exercise) => {
             if (err) return console.error(err);
@@ -114,12 +116,10 @@ router.post('/flashcardExercises', (req, res) => {
     });
 });
 
-router.put('/flashcardExercises', (req, res) => {
-    this.deleteAttachments(req.body)
+exerciseRouter.put('/flashcardExercises', (req, res) => {
+    deleteAttachments(req.body)
     flashcardExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
         if (err) return console.error(err);
         res.sendStatus(200);
     });
 });
-
-module.exports = router;

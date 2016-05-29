@@ -6,11 +6,13 @@ import libraryService = require('./library');
 import PracticeFocus = exercise.PracticeFocus;
 import * as _ from 'lodash';
 import {PracticeFocus} from "../model/practiceFocus";
+import {isAuthenticated} from './common';
 
 
-let router = express.Router();
+export let practiceFocusRouter = express.Router();
+practiceFocusRouter.use(isAuthenticated);
 
-router.get('/', (req, res) => {
+practiceFocusRouter.get('/', (req, res) => {
     libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
         if (library.practiceFocuses.length === 0) {
             var practiceFocus = <PracticeFocus>{title: "Current focus"};
@@ -24,7 +26,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.put('/', (req, res) => {
+practiceFocusRouter.put('/', (req, res) => {
     libraryService.getOrCreateLibrary(req, (err, library:ExerciseLibrary) => {
         let practiceFocus:PracticeFocus = _.find(library.practiceFocuses, {id: req.body._id});
         practiceFocus.exercises = _.map(req.body.exercises, '_id');
@@ -34,5 +36,3 @@ router.put('/', (req, res) => {
         });
     });
 });
-
-module.exports = router;

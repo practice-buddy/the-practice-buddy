@@ -1,7 +1,6 @@
-module.exports = (app) => {
+export let initAuth =  (app) => {
     let mongoose = require('mongoose');
     let express = require('express');
-    let router = express.Router();
     let bcrypt = require('bcrypt-nodejs');
 
 

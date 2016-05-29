@@ -1,12 +1,14 @@
 import express = require('express');
 import * as _ from 'lodash';
-
-let router = express.Router();
+import {isAuthenticated} from './common';
 
 import attachmentContent = require('../model/attachmentContent');
 import attachmentContentRepository  = attachmentContent.repository;
 
-router.get('/:attachmentId', (req, res) => {
+export let attachmentContentRouter = express.Router();
+attachmentContentRouter.use(isAuthenticated);
+
+attachmentContentRouter.get('/:attachmentId', (req, res) => {
     attachmentContentRepository.findOne({"_id": req.params.attachmentId}, (err, file) => {
         if (err || !file) {
             res.sendStatus(404);
@@ -56,5 +58,3 @@ export let deleteAttachment = function (exercise, attachment) {
         }
     });
 };
-
-module.exports = router;
