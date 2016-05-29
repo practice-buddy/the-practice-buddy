@@ -11,6 +11,34 @@ gulp                            : Builds server and client to practice-buddy-ser
 gulp buildAllAndRunServer       : Builds server and client and starts server
 
 
+
+Deploy
+=====================
+
+First time setup:
+
+npm install -g angular-cli
+npm install -g gulp
+npm install typings --global
+
+
+DigitalOcean Droplet:
+login via ssh
+cd /opt/the-practice-buddy
+git pull
+
+cd practice-buddy-client/
+npm install
+
+cd practice-buddy-server/
+npm install
+
+gulp
+
+cd
+./runPracticeBuddy.sh
+
+
 Test commands
 =====================
 
@@ -25,6 +53,6 @@ curl -H "Content-Type: application/json" -X POST -d '{"personalPerformanceRating
 
 curl -H "Content-Type: application/json" -X POST -d '{"title":"The Flashcard","flashcardGroups":[{"flashcards":["C","D","E","F","G","A","H" ]}, {"flashcards": ["#", "Natural", "b" ]  },  {"flashcards":["Dur", "Moll"]}]}' http://localhost:3011/exercises/flashcardExercises
 
- curl -H "Content-Type: application/json" -X POST -d '{"name": "1", "password": "1", "email":"tester@test.com"}' http://localhost:3011/auth/signup
+curl -H "Content-Type: application/json" -X POST -d '{"name": "1", "password": "1", "email":"tester@test.com"}' http://localhost:3011/auth/signup
 
 
