@@ -33,7 +33,9 @@ export class PracticeBuddyClientAppComponent implements OnInit {
     this.userService.logout().subscribe(() => {
       this.isLoggedIn = false;
       this.router.navigate(['/login']);
-
+    },(err) => {
+      this.isLoggedIn = false;
+      this.router.navigate(['/login']);
     });
   }
 
@@ -50,7 +52,6 @@ export class PracticeBuddyClientAppComponent implements OnInit {
       } else {
         this.isLoggedIn =false;
       }
-
     })
   }
 

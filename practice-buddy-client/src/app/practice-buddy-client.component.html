@@ -1,8 +1,8 @@
 <div class="page-header">
   <h1>I'm your dear practice buddy
     <small>love me!</small>
+    <button type="button" class="btn btn-default" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
   </h1>
-  <a *ngIf="isLoggedIn" href="#" (click)="logout()">Logout</a>
 </div>
 <ul class="nav nav-tabs" *ngIf="isLoggedIn">
   <li role="presentation"><a [routerLink]="['/manage']">manage</a></li>
