@@ -23,19 +23,9 @@ npm install typings --global
 
 
 DigitalOcean Droplet:
+
 login via ssh
-cd /opt/the-practice-buddy
-git pull
-
-cd practice-buddy-client/
-npm install
-
-cd practice-buddy-server/
-npm install
-
-gulp
-
-cd
+./updateAndBuild.sh
 ./runPracticeBuddy.sh
 
 
@@ -48,11 +38,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"_id":"573eda74bd6ba04416a
 
 Insert execution
 curl -H "Content-Type: application/json" -X POST -d '{"personalPerformanceRating": 9}' http://localhost:3011/exercises/573eda74bd6ba04416adbe9b/execution
-
-
-
 curl -H "Content-Type: application/json" -X POST -d '{"title":"The Flashcard","flashcardGroups":[{"flashcards":["C","D","E","F","G","A","H" ]}, {"flashcards": ["#", "Natural", "b" ]  },  {"flashcards":["Dur", "Moll"]}]}' http://localhost:3011/exercises/flashcardExercises
-
 curl -H "Content-Type: application/json" -X POST -d '{"name": "1", "password": "1", "email":"tester@test.com"}' http://localhost:3011/auth/signup
 
 
