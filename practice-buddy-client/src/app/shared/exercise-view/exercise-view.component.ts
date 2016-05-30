@@ -5,7 +5,7 @@ import {AudioPlayerComponent} from "../audio-player/audio-player.component";
 import {ExerciseAttachment} from "../../model/exerciseAttachments";
 import {ExercisesService} from "../../services/exercises-service";
 import {AttachmentViewComponent} from "../attachment-view/attachment-view.component";
-import {LabelEditorComponent} from "../../+manage/detail/exercise-editor/label-editor/label-editor.component";
+import {LabelEditorComponent} from "../label-editor/label-editor.component";
 
 
 @Component({

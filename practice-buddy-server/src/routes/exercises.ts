@@ -33,7 +33,7 @@ exerciseRouter.get('/labels', (req, res) => {
             labels.push(...exericse.labels)
             return labels;
         }, []);
-        res.json(result);
+        res.json(_.sortedUniq(result));
     });
 });
 

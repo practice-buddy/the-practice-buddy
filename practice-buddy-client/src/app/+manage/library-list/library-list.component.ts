@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
+import {Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy} from "@angular/core";
 import {Exercise} from "../../model/exercise";
 import {Dragula, DragulaService} from "ng2-dragula/ng2-dragula";
 import {PracticeFocusService} from "../../services/practice-focus-service";
@@ -8,13 +8,16 @@ import "rxjs/add/observable/forkJoin";
 import * as _ from "lodash";
 import {CreateNewExerciseComponent} from "./create-new-exercise/create-new-exercise.component";
 import {ExercisesService} from "../../services/exercises-service";
+import {LabelEditorComponent} from "../../shared/label-editor/label-editor.component";
+import {ExerciseFilter} from "../../shared/exercise-filter.pipe/exercise-filter.pipe";
 
 @Component({
   moduleId: module.id,
   selector: 'manage-library-list',
   templateUrl: 'library-list.component.html',
   viewProviders: [DragulaService],
-  directives: [CreateNewExerciseComponent, Dragula],
+  pipes: [ExerciseFilter],
+  directives: [CreateNewExerciseComponent, Dragula, LabelEditorComponent],
   providers: [PracticeFocusService],
   styleUrls: ['library-list.component.css']
 })
@@ -26,6 +29,8 @@ export class LibraryListComponent implements OnInit {
   private practiceFocus:PracticeFocus;
   private practiceExercises:Exercise[] = [];
   private libraryExercises:Exercise[] = [];
+
+  private searchExercise: Exercise = new Exercise(null);
 
   constructor(private dragulaService:DragulaService, private exercisesFocusService:PracticeFocusService, private exercisesService:ExercisesService) {
     this.fetchData();
