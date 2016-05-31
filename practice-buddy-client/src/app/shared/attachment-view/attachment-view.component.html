@@ -16,7 +16,7 @@
               <div class="glyphicon glyphicon-remove"></div>
             </div>
           </div>
-          <div *ngIf="isAudioFile(attachment) && !editMode" class="col-md-4">
+          <div *ngIf="isAudioFile(attachment) && !editMode" class="col-md-6">
             <audio-player [src]="getStreamingUrl(attachment)" [playbackRate]="playbackRate.value"></audio-player>
             <input type="range" value="100" style="width: 300px" #playbackRate>
           </div>

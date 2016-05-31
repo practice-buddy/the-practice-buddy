@@ -10,6 +10,8 @@ const map:any = {
   'ng2-file-upload': 'vendor/ng2-file-upload',
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
   'moment': 'vendor/moment',
+  'wavesurfer.js': 'vendor/wavesurfer.js',
+  'wavesurfer.regions': 'vendor/wavesurfer.js/dist/plugin/',
 
 };
 
@@ -21,7 +23,9 @@ const packages:any = {
   'showdown': {'main': 'dist/showdown.min.js'},
   'ng2-file-upload': {'main': 'ng2-file-upload.js'},
   'ng2-bootstrap': {'main': 'ng2-bootstrap.js'},
-  'moment': {'main': 'moment.js'}
+  'moment': {'main': 'moment.js'},
+  'wavesurfer.js': {'main': 'dist/wavesurfer.js'},
+  'wavesurfer.regions': {'main': 'wavesurfer.regions.js'}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

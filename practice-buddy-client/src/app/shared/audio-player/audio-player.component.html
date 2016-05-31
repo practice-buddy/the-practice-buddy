@@ -1,3 +1,3 @@
-<audio controls #player preload="none">
-  <source [src]="src" type="audio/mpeg">
-</audio>
+<div id="waveform"></div>
+<button type="button" (click)="play()">Play</button>
+<label><input #loopCb type="checkbox" (change)="onChangeLoop(loopCb.checked)"/>Loop</label>
