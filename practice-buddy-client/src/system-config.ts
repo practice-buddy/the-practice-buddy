@@ -69,6 +69,7 @@ const barrels:string[] = [
   'app/+manage/detail/exercise-editor',
   'app/shared/attachment-view',
   'app/+manage/detail/exercise-editor/label-editor',
+  'app/+manage/detail/exercise-editor/attachment-editor',
   /** @cli-barrel */
 ];
 

@@ -1,16 +1,7 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div *ngIf="audioFiles.length > 0 && !editMode" class="col-md-6">
-      <audio-player [audioFiles]="audioFiles"></audio-player>
-    </div>
-  </div>
-</div>
-
-<div *ngFor="let attachment of otherAttachments">
-  <div class="panel panel-default">
+<div *ngFor="let attachment of exercise.attachments">
+  <div class="panel panel-default" [hidden] ="attachment.deleted">
     <div class="panel-body">
       <h4>{{attachment.name}}</h4>
-
       <div class="container-fluid">
         <div class="row">
           <div class="btn-group col-md-2" role="group">
@@ -19,6 +10,9 @@
                  [attr.download]="attachment.name">
                 <div class="glyphicon glyphicon-download"></div>
               </a>
+            </div>
+            <div class="btn btn-default" (click)="deleteAttachment(attachment)">
+              <div class="glyphicon glyphicon-remove"></div>
             </div>
           </div>
         </div>

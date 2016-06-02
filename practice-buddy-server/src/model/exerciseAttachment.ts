@@ -7,11 +7,13 @@ export interface ExerciseAttachment {
     mimetype:string;
     name:string;
     content:AttachmentContent;
+    // transient
+    url: string;
 }
 
 export let ExerciseAttachmentSchema = new mongoose.Schema({
     mimetype: {type: String, required: true},
     name: {type: String, required: true},
-    content: {type: Schema.Types.ObjectId, ref: 'AttachmentContent'}
+    content: {type: Schema.Types.ObjectId, ref: 'AttachmentContent', required: true}
 });
 

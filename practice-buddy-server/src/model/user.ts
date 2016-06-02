@@ -7,9 +7,9 @@ export interface User extends mongoose.Document {
     email:string;
 }
 let UserSchema = new mongoose.Schema({
-    name: String,
-    password: String,
-    email: String,
+    name: {type: String, unique: true, required: true},
+    password: {type: String, unique: true},
+    email: {type: String, unique: true},
 });
 
 export let repository = mongoose.model<User>('User', UserSchema);

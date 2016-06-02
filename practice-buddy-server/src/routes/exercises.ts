@@ -13,7 +13,6 @@ import exerciseExecution = require('../model/exerciseExecution');
 import flashcardGroup = require('../model/flashcardGroup');
 import libraryService = require('./library');
 import attachmentService = require('./attachmentContent');
-
 import {ExerciseAttachment} from "../model/exerciseAttachment";
 
 import Exercise = exercise.Exercise;
@@ -39,7 +38,7 @@ exerciseRouter.get('/labels', (req, res) => {
 
 
 exerciseRouter.get('/', (req, res) => {
-    libraryService.getOrCreateLibrary(req, (err, library) => {
+    libraryService.getOrCreateLibrary(req, (err, library: ExerciseLibrary) => {
         res.json(library.exercises)
     });
 });

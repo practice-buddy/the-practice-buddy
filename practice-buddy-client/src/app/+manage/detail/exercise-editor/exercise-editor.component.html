@@ -36,7 +36,7 @@
     <input id="fileUpload" type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>
   </div>
 
-  <attachment-view [exercise]="exercise" [editMode]="true"></attachment-view>
+  <attachment-editor [exercise]="exercise" [editMode]="true"></attachment-editor>
 
   <div class="form-group">
     <flashcard-editor *ngIf="isFlashcardExercise()" [exercise]="exercise"></flashcard-editor>

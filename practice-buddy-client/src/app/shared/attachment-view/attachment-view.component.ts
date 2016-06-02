@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {Exercise} from "../../model/exercise";
 import {ExerciseAttachment} from "../../model/exerciseAttachments";
 import * as _ from 'lodash';
@@ -16,20 +16,25 @@ const SUPPORTED_AUDIO_FORMATS = ['audio/mpeg', 'audio/ogg', 'audio/wav', 'audio/
   styleUrls: ['attachment-view.component.css'],
   directives: [AudioPlayerComponent]
 })
-export class AttachmentViewComponent implements OnInit {
+export class AttachmentViewComponent implements OnInit, OnChanges {
 
   @Input()
   private exercise:Exercise;
 
-  @Input()
-  private editMode: boolean;
-
-  constructor(private exercisesService: ExercisesService) {
-  }
+  private audioFiles:ExerciseAttachment[] = [];
+  private otherAttachments:ExerciseAttachment[] = [];
 
   ngOnInit() {
   }
 
+  ngOnChanges(changes):void {
+    if (changes['exercise']) {
+      this.audioFiles.length = 0;
+      this.otherAttachments.length = 0;
+      this.audioFiles = _.filter(this.exercise.attachments, this.isAudioFile);
+      this.otherAttachments = _.reject(this.exercise.attachments, this.isAudioFile);
+    }
+  }
 
   isAudioFile(attachment:ExerciseAttachment):boolean {
     if (attachment) {
@@ -37,17 +42,4 @@ export class AttachmentViewComponent implements OnInit {
     }
     return false;
   }
-
-  getStreamingUrl(audiofile:ExerciseAttachment) {
-    return '/attachments/' + audiofile.content;
-  }
-
-  getAttachmentTitle(attachment:ExerciseAttachment) {
-    return attachment.name.substr(0, attachment.name.lastIndexOf('.')) || attachment.name;
-  }
-
-  deleteAttachment(attachment:ExerciseAttachment) {
-    attachment.deleted = true;
-  }
-
 }

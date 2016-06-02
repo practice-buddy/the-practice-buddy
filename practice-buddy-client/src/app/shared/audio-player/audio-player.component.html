@@ -1,3 +1,25 @@
-<div id="waveform"></div>
-<button type="button" (click)="play()">Play</button>
-<label><input #loopCb type="checkbox" (change)="onChangeLoop(loopCb.checked)"/>Loop</label>
+<div>
+
+
+  <div id="waveform">
+  </div>
+  <input #playbackRateRange type="range" value="100" style="width: 300px"
+         (change)="updatePlaybackRate(playbackRateRange.value)" [(ngModel)]="playbackRate"/>
+
+  <div>
+    <button type="button" (click)="togglePlay()">{{playing ? 'Pause' : 'Play' }}</button>
+    <button type="button" (click)="toggleActive()">{{active ? 'Deactivate Player' : 'Activate' }}</button>
+    <label><input #loopCb type="checkbox" (change)="onChangeLoop(loopCb.checked)"/>Loop</label>
+
+    <span *ngFor="let region of regions; let i = index" class="badge">{{'Loop ' + (i + 1)}}
+      <div class="glyphicon glyphicon-remove" (click)="removeRegion(region)"></div>
+    </span>
+  </div>
+  <ul class="nav nav-pills nav-stacked"
+      style="min-height: 50px">
+    <li role="presentation" *ngFor="let audioFile of audioFiles"
+        [class.active]="audioFile === selectedAudioFile">
+      <a (click)="selectAudioFile(audioFile)">{{audioFile.name}}</a>
+    </li>
+  </ul>
+</div>
