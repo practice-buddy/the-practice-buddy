@@ -44,6 +44,7 @@ export class ExercisesService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     return this.http.put(this.getUrlForExerciseType(exercise), body, options)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 

@@ -4,9 +4,9 @@ import {ExerciseAttachment} from "../../model/exerciseAttachments";
 import * as _ from 'lodash';
 import {AudioPlayerComponent} from "../audio-player/audio-player.component";
 import {ExercisesService} from "../../services/exercises-service";
+import {FileFilter} from "../file-filter.pipe/file-filter.pipe";
 
 
-const SUPPORTED_AUDIO_FORMATS = ['audio/mpeg', 'audio/ogg', 'audio/wav', 'audio/x-wav', 'audio/x-m4a', 'audio/mp4', 'audio/mp4', 'audio/aac', 'audio/mp3'];
 
 
 @Component({
@@ -14,32 +14,21 @@ const SUPPORTED_AUDIO_FORMATS = ['audio/mpeg', 'audio/ogg', 'audio/wav', 'audio/
   selector: 'attachment-view',
   templateUrl: 'attachment-view.component.html',
   styleUrls: ['attachment-view.component.css'],
-  directives: [AudioPlayerComponent]
+  directives: [AudioPlayerComponent],
+  pipes: [FileFilter]
 })
 export class AttachmentViewComponent implements OnInit, OnChanges {
 
   @Input()
   private exercise:Exercise;
 
-  private audioFiles:ExerciseAttachment[] = [];
-  private otherAttachments:ExerciseAttachment[] = [];
 
   ngOnInit() {
   }
 
   ngOnChanges(changes):void {
-    if (changes['exercise']) {
-      this.audioFiles.length = 0;
-      this.otherAttachments.length = 0;
-      this.audioFiles = _.filter(this.exercise.attachments, this.isAudioFile);
-      this.otherAttachments = _.reject(this.exercise.attachments, this.isAudioFile);
-    }
+
   }
 
-  isAudioFile(attachment:ExerciseAttachment):boolean {
-    if (attachment) {
-      return _.includes(SUPPORTED_AUDIO_FORMATS, attachment.mimetype);
-    }
-    return false;
-  }
+
 }

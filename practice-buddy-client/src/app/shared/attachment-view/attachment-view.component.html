@@ -1,12 +1,6 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div *ngIf="audioFiles.length > 0 && !editMode" class="col-md-6">
-      <audio-player [audioFiles]="audioFiles"></audio-player>
-    </div>
-  </div>
-</div>
+<audio-player [audioFiles]="exercise.attachments | fileFilter: 'Audio'"></audio-player>
 
-<div *ngFor="let attachment of otherAttachments">
+<div *ngFor="let attachment of exercise.attachments |  fileFilter: 'Others'">
   <div class="panel panel-default">
     <div class="panel-body">
       <h4>{{attachment.name}}</h4>

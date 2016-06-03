@@ -72,9 +72,12 @@ export class ExerciseEditorComponent implements OnInit, OnChanges {
 
   private updateExercise() {
     this.exercisesService.updateExercise(this.exercise).subscribe(
-      error => {
+      updatedExercise => {
+        this.exercise.attachments.length = 0;
+        this.exercise.attachments.push(...updatedExercise.attachments);
+        this.exerciseUpdated.emit(updatedExercise);
+      }, error => {
         this.errorMessage = <any>error;
-        this.exerciseUpdated.emit(this.exercise)
       });
 
 

@@ -1,25 +1,57 @@
-<div>
+<div [hidden]="audioFiles.length === 0">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div id="waveform"></div>
+      <div class="btn-group" role="group" class="text-center">
+        <button type="button" class="btn btn-default" (click)="togglePlay()">
+          <span *ngIf="!playing" class="glyphicon glyphicon-play"></span>
+          <span *ngIf="playing" class="glyphicon glyphicon-pause"></span>
+        </button>
+        <button type="button" class="btn btn-default"
+                [(ngModel)]="loop" btnCheckbox (click)="onChangeLoop()">
+          <span class="glyphicon glyphicon-repeat"></span>
+        </button>
 
+        <div class="btn-group" dropdown>
+          <button id="playbackRate" type="button" class="btn btn-default" dropdownToggle>
+            <span class="glyphicon glyphicon-hourglass"></span> <span class="caret"></span>
+          </button>
+          <span class="dropdown-menu" role="menu" aria-labelledby="playbackRate">
+            <input #playbackRateRange type="range" value="100" class="player-slider"
+                   (change)="updatePlaybackRate(playbackRateRange.value)" [(ngModel)]="playbackRate"/>
+          </span>
+        </div>
 
-  <div id="waveform">
+        <div class="btn-group" dropdown>
+          <button id="volume" type="button" class="btn btn-default" dropdownToggle>
+            <span class="glyphicon glyphicon-volume-up"></span> <span class="caret"></span>
+          </button>
+          <span class="dropdown-menu" role="menu" aria-labelledby="volume">
+            <input #volumeCtrl type="range" value="100" class="player-slider"
+                   (change)="updateVolume(volumeCtrl.value)" [(ngModel)]="volume"/>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
-  <input #playbackRateRange type="range" value="100" style="width: 300px"
-         (change)="updatePlaybackRate(playbackRateRange.value)" [(ngModel)]="playbackRate"/>
 
-  <div>
-    <button type="button" (click)="togglePlay()">{{playing ? 'Pause' : 'Play' }}</button>
-    <button type="button" (click)="toggleActive()">{{active ? 'Deactivate Player' : 'Activate' }}</button>
-    <label><input #loopCb type="checkbox" (change)="onChangeLoop(loopCb.checked)"/>Loop</label>
-
-    <span *ngFor="let region of regions; let i = index" class="badge">{{'Loop ' + (i + 1)}}
-      <div class="glyphicon glyphicon-remove" (click)="removeRegion(region)"></div>
-    </span>
+  <div *ngIf="regions.length > 0" class="panel panel-default">
+    <div class="panel-body">
+        <span *ngFor="let region of regions; let i = index" class="badge" (click)="playRegion(region)">{{'Loop ' + (i + 1)}}
+          <div class="glyphicon glyphicon-remove" (click)="removeRegion(region)"></div>
+        </span>
+    </div>
   </div>
-  <ul class="nav nav-pills nav-stacked"
-      style="min-height: 50px">
-    <li role="presentation" *ngFor="let audioFile of audioFiles"
-        [class.active]="audioFile === selectedAudioFile">
-      <a (click)="selectAudioFile(audioFile)">{{audioFile.name}}</a>
-    </li>
-  </ul>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <ul class="nav nav-pills nav-stacked"
+          style="min-height: 50px">
+        <li role="presentation" *ngFor="let audioFile of audioFiles"
+            [class.active]="audioFile === selectedAudioFile">
+          <a (click)="selectAudioFile(audioFile)">{{audioFile.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

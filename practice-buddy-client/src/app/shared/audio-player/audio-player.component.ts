@@ -1,7 +1,13 @@
-import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, Input, OnDestroy  } from '@angular/core';
 import 'wavesurfer.js';
 import 'wavesurfer.regions';
 import * as _ from 'lodash';
+import {BUTTON_DIRECTIVES} from 'ng2-bootstrap';
+import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
+
+import {Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router} from '@angular/router';
+import { Location } from '@angular/common';
+
 import {ExerciseAttachment} from "../../model/exerciseAttachments";
 
 declare var WaveSurfer:any; // Magic
@@ -11,18 +17,24 @@ declare var WaveSurfer:any; // Magic
   selector: 'audio-player',
   templateUrl: 'audio-player.component.html',
   styleUrls: ['audio-player.component.css'],
+  directives: [BUTTON_DIRECTIVES, ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES],
   host: {'(window:keydown)': 'handleKeyDown($event)'},
+  providers: [ROUTER_PROVIDERS]
 })
-export class AudioPlayerComponent implements OnChanges, OnInit {
+export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy  {
 
   @Input()
-  private audioFiles:ExerciseAttachment[];
+  private audioFiles:ExerciseAttachment[]= [];
+
+  private practiceMode = false;
 
   private playbackRate:number = 100;
 
+  private volume:number = 80;
+
   private wavesurfer;
 
-  private loop;
+  private loop = false;
 
   private playing;
 
@@ -31,31 +43,31 @@ export class AudioPlayerComponent implements OnChanges, OnInit {
   private regions = [];
 
   private selectedAudioFile;
-  private active=false;
 
-  constructor() {
+  constructor(private location:Location) {
 
   }
-
-  toggleActive(){
-    this.active = !this.active;
-    console.log(this.active)
-  }
-
 
   selectAudioFile(audioFile) {
-    this.wavesurfer.destroy();
-    this.wavesurfer = null;
-    this.playing = false;
-    this.regions.length = 0;
+    this.destroyWavesurfer();
     this.lazyInitWaveSurfer();
     this.selectedAudioFile = audioFile;
     this.wavesurfer.load('/attachments/' + this.selectedAudioFile.content);
   }
 
+  private destroyWavesurfer(){
+      this.wavesurfer.destroy();
+      this.wavesurfer = null;
+      this.playing = false;
+      this.regions.length = 0;
+      };
+
+  ngOnDestroy() {
+    this.destroyWavesurfer();
+  }
 
   handleKeyDown(key) {
-    if(!this.active) {
+    if (!this.practiceMode) {
       return;
     }
     let number = parseInt(String.fromCharCode(key.which));
@@ -77,7 +89,6 @@ export class AudioPlayerComponent implements OnChanges, OnInit {
     if (key.code === 'Space') {
       this.wavesurfer.playPause();
     }
-
   }
 
   private handleLeftRightKey(key) {
@@ -120,21 +131,24 @@ export class AudioPlayerComponent implements OnChanges, OnInit {
   };
 
   ngOnInit() {
+    this.practiceMode = location.pathname === '/execute';
   }
 
   private lazyInitWaveSurfer() {
     if (this.wavesurfer == null) {
       this.wavesurfer = new WaveSurfer.create({
         container: '#waveform',
-        waveColor: 'lightBlue',
-        progressColor: 'darkBlue',
-        backend: 'MediaElement'
+        waveColor: '#87CEFA ',
+        progressColor: 'lightBlue',
       });
 
       this.wavesurfer.on('ready', () => {
 
         // Enable creating regions by dragging
-        this.wavesurfer.enableDragSelection({});
+        if (this.practiceMode) {
+          this.wavesurfer.enableDragSelection({});
+
+        }
 
         this.wavesurfer.on('play', () => {
           this.playing = true;
@@ -164,9 +178,6 @@ export class AudioPlayerComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes):any {
     this.lazyInitWaveSurfer();
-    if (changes['playbackRate']) {
-      this.updatePlaybackRate(this.playbackRate);
-    }
     if (changes['audioFiles']) {
       if (this.audioFiles.length > 0) {
         this.selectAudioFile(this.audioFiles[0])
@@ -180,11 +191,20 @@ export class AudioPlayerComponent implements OnChanges, OnInit {
     this.wavesurfer.backend.setPlaybackRate(calculatedRate);
   };
 
-  onChangeLoop(checked) {
-    this.loop = checked;
-    if (this.selectedRegion) {
-      this.selectedRegion.update({loop: this.loop});
-    }
+  updateVolume(volume:number) {
+    this.wavesurfer.setVolume(volume / 100)
+  };
+
+  onChangeLoop() {
+    this.loop = !this.loop;
+    console.log(this.loop);
+    _.forEach(this.regions, (region) => {
+      region.update({loop: this.loop});
+    });
+  }
+
+  playRegion(region) {
+    region.play();
   }
 
   play() {

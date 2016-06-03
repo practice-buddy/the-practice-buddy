@@ -43,8 +43,9 @@
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-default" [disabled]="!exerciseForm.form.valid">Submit</button>
-    <div class="progress" style="width: 200px" [hidden]="!uploader.isUploading">
-      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-    </div>
+
+  </div>
+  <div class="progress" style="width: 200px" [hidden]="!uploader.isUploading">
+    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
   </div>
 </form>
