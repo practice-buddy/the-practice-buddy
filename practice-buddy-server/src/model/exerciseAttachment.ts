@@ -7,8 +7,6 @@ export interface ExerciseAttachment {
     mimetype:string;
     name:string;
     content:AttachmentContent;
-    // transient
-    url: string;
 }
 
 export let ExerciseAttachmentSchema = new mongoose.Schema({
