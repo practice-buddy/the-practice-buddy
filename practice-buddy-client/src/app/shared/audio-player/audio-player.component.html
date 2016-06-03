@@ -16,7 +16,8 @@
           <button id="playbackRate" type="button" class="btn btn-default" dropdownToggle>
             <span class="glyphicon glyphicon-hourglass"></span> <span class="caret"></span>
           </button>
-          <span class="dropdown-menu" role="menu" aria-labelledby="playbackRate">
+
+          <span class="dropdown-menu audio-dropdown" role="menu" aria-labelledby="playbackRate">
             <input #playbackRateRange type="range" value="100" class="player-slider"
                    (change)="updatePlaybackRate(playbackRateRange.value)" [(ngModel)]="playbackRate"/>
           </span>
@@ -26,7 +27,7 @@
           <button id="volume" type="button" class="btn btn-default" dropdownToggle>
             <span class="glyphicon glyphicon-volume-up"></span> <span class="caret"></span>
           </button>
-          <span class="dropdown-menu" role="menu" aria-labelledby="volume">
+          <span class="dropdown-menu audio-dropdown" role="menu" aria-labelledby="volume">
             <input #volumeCtrl type="range" value="100" class="player-slider"
                    (change)="updateVolume(volumeCtrl.value)" [(ngModel)]="volume"/>
           </span>

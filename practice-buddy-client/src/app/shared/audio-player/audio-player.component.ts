@@ -140,6 +140,7 @@ export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy  {
         container: '#waveform',
         waveColor: '#87CEFA ',
         progressColor: 'lightBlue',
+        backend: 'MediaElement'
       });
 
       this.wavesurfer.on('ready', () => {

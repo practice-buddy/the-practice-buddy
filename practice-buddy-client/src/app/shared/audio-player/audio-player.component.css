@@ -1,7 +1,15 @@
 .player-slider {
   padding: 0 15px 0;
+  -webkit-appearance: slider-vertical;
+  width: 20px;
+
+
 }
 
 #waveform {
   margin: 5px 0 20px 0;
+}
+
+.audio-dropdown {
+  min-width: 30px;
 }
