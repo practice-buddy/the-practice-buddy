@@ -13,7 +13,6 @@ import exerciseExecution = require('../model/exerciseExecution');
 import flashcardGroup = require('../model/flashcardGroup');
 import libraryService = require('./library');
 import attachmentService = require('./attachmentContent');
-
 import {ExerciseAttachment} from "../model/exerciseAttachment";
 
 import Exercise = exercise.Exercise;
@@ -39,7 +38,7 @@ exerciseRouter.get('/labels', (req, res) => {
 
 
 exerciseRouter.get('/', (req, res) => {
-    libraryService.getOrCreateLibrary(req, (err, library) => {
+    libraryService.getOrCreateLibrary(req, (err, library: ExerciseLibrary) => {
         res.json(library.exercises)
     });
 });
@@ -63,10 +62,9 @@ exerciseRouter.post('/simpleExercises', (req, res) => {
 
 exerciseRouter.put('/simpleExercises', (req, res) => {
     deleteAttachments(req.body)
-    simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
+    simpleExerciseRepository.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, ex) => {
         if (err) return console.error(err);
-
-        res.sendStatus(200);
+        res.json(ex);
     });
 });
 
@@ -82,9 +80,9 @@ exerciseRouter.post('/flashcardExercises', (req, res) => {
 
 exerciseRouter.put('/flashcardExercises', (req, res) => {
     deleteAttachments(req.body)
-    flashcardExerciseRepository.findByIdAndUpdate(req.body._id, req.body, (err, ex) => {
+    flashcardExerciseRepository.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, ex) => {
         if (err) return console.error(err);
-        res.sendStatus(200);
+        res.json(ex);
     });
 });
 
@@ -124,12 +122,13 @@ exerciseRouter.post('/:exerciseId/execution', (req, res) => {
     });
 });
 
-let deleteAttachments = function (body:any):void {
+let deleteAttachments = (body:any):void => {
     _.forEach(body.attachments, (attachment) => {
         if (attachment.deleted) {
             attachmentService.deleteAttachment(body, attachment)
         }
     });
 
-    body.attachments = _.reject(body.attachments, {deleted: true})
+    body.attachments = _.reject(body.attachments, {deleted: true});
+
 }

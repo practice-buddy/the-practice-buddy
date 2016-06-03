@@ -12,7 +12,7 @@ export interface ExerciseLibrary extends mongoose.Document {
 
 }
 let ExerciseLibrarySchema = new mongoose.Schema({
-    owner: [{type: Schema.Types.ObjectId, ref: 'User'}],
+    owner: {type: Schema.Types.ObjectId, ref: 'User', unique: true},
     exercises: [{type: Schema.Types.ObjectId, ref: 'Exercise'}],
     practiceFocuses: [PracticeFocusSchema]
 

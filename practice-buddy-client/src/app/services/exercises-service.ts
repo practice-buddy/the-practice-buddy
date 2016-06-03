@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {Exercise} from "../model/exercise";
 import {ExerciseType} from "../model/exercise-type";
 import {ExerciseAttachment} from "../model/exerciseAttachments";
+import * as _  from 'lodash';
 
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/debounceTime";
@@ -18,7 +19,6 @@ export class ExercisesService {
   private exercisesUrl = 'exercises';
   private simpleExercisesUrl = this.exercisesUrl + '/simpleExercises';
   private flashcardExercisesUrl = this.exercisesUrl + '/flashcardExercises';
-  private attachmentUrl = 'attachments';
 
   private typeToUrlMap:Map<string, string> = new Map<string, string>();
 
@@ -44,6 +44,7 @@ export class ExercisesService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
     return this.http.put(this.getUrlForExerciseType(exercise), body, options)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 

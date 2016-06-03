@@ -19,7 +19,8 @@ module.exports = function(defaults) {
       'showdown/dist/showdown.min.+(js|js.map)',
       'ng2-file-upload/**/*.+(js|js.map)',
       'ng2-bootstrap/**/*.+(js|js.map)',
-      'moment/**/*.+(js|js.map)'
+      'moment/**/*.+(js|js.map)',
+      'wavesurfer.js/dist/**/*.js'
     ]
   });
 };

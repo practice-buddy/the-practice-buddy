@@ -6,7 +6,7 @@ export let getOrCreateLibrary = (req, callback) => {
         if (count === 0) {
             var library = {
                 "owner": req.user._id,
-                practiceFocuses: [{title: 'Current focus'}]
+                practiceFocuses: [{title: req.user._id}]
             };
             exerciseLibraryRepository.create(library, (err, library) => {
                 callback(err, library);
@@ -20,7 +20,7 @@ export let getOrCreateLibrary = (req, callback) => {
 let getUserLibrary = function (req, callback) {
     exerciseLibraryRepository.findOne({"owner": req.user._id}).populate({
         path: 'exercises',
-        populate: {path: 'executions'}
+        populate: [{path: 'executions'}, {path: 'attachments'}]
     }).populate({
         path: 'practiceFocuses',
         populate: {path: 'exercises'}

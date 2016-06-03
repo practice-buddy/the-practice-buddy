@@ -12,6 +12,6 @@ export interface ExerciseAttachment {
 export let ExerciseAttachmentSchema = new mongoose.Schema({
     mimetype: {type: String, required: true},
     name: {type: String, required: true},
-    content: {type: Schema.Types.ObjectId, ref: 'AttachmentContent'}
+    content: {type: Schema.Types.ObjectId, ref: 'AttachmentContent', required: true}
 });
 

@@ -8,12 +8,13 @@ import * as _ from 'lodash';
 import {ExerciseAttachment} from "../../../model/exerciseAttachments";
 import {AttachmentViewComponent} from "../../../shared/attachment-view/attachment-view.component";
 import {LabelEditorComponent} from "../../../shared/label-editor/label-editor.component";
+import {AttachmentEditorComponent} from "./attachment-editor/attachment-editor.component";
 
 @Component({
   moduleId: module.id,
   selector: 'exercise-editor',
   templateUrl: 'exercise-editor.component.html',
-  directives: [FlashcardEditorComponent, FILE_UPLOAD_DIRECTIVES, AttachmentViewComponent, LabelEditorComponent],
+  directives: [FlashcardEditorComponent, FILE_UPLOAD_DIRECTIVES, AttachmentViewComponent, LabelEditorComponent, AttachmentEditorComponent],
 
   styleUrls: ['exercise-editor.component.css']
 })
@@ -71,9 +72,12 @@ export class ExerciseEditorComponent implements OnInit, OnChanges {
 
   private updateExercise() {
     this.exercisesService.updateExercise(this.exercise).subscribe(
-      error => {
+      updatedExercise => {
+        this.exercise.attachments.length = 0;
+        this.exercise.attachments.push(...updatedExercise.attachments);
+        this.exerciseUpdated.emit(updatedExercise);
+      }, error => {
         this.errorMessage = <any>error;
-        this.exerciseUpdated.emit(this.exercise)
       });
 
 
