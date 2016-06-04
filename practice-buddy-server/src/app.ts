@@ -5,6 +5,7 @@ import favicon = require('serve-favicon');
 import logger = require('morgan');
 import cookieParser = require('cookie-parser');
 import bodyParser = require('body-parser');
+import methodOverride = require('method-override');
 import mongoose = require('mongoose');
 
 import {attachmentContentRouter} from './routes/attachmentContent';
@@ -16,6 +17,7 @@ import compress = require('compression');
 import {config} from './routes/common';
 import {initAuth} from './routes/auth';
 
+
 let app = express();
 
 mongoose.connect(config().mongodbUrl);
@@ -26,6 +28,7 @@ app.use(compress());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
