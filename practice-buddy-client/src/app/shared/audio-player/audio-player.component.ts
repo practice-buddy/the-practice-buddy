@@ -21,10 +21,10 @@ declare var WaveSurfer:any; // Magic
   host: {'(window:keydown)': 'handleKeyDown($event)'},
   providers: [ROUTER_PROVIDERS]
 })
-export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy  {
+export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy {
 
   @Input()
-  private audioFiles:ExerciseAttachment[]= [];
+  private audioFiles:ExerciseAttachment[] = [];
 
   private practiceMode = false;
 
@@ -55,12 +55,13 @@ export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy  {
     this.wavesurfer.load('/attachments/' + this.selectedAudioFile.content);
   }
 
-  private destroyWavesurfer(){
-      this.wavesurfer.destroy();
-      this.wavesurfer = null;
-      this.playing = false;
-      this.regions.length = 0;
-      };
+  private destroyWavesurfer() {
+    this.wavesurfer.empty();
+    this.wavesurfer.destroy();
+    this.wavesurfer = null;
+    this.playing = false;
+    this.regions.length = 0;
+  };
 
   ngOnDestroy() {
     this.destroyWavesurfer();
@@ -114,7 +115,6 @@ export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy  {
       this.selectedRegion = this.getNextRegion(key);
       this.seekToRegionStart(this.selectedRegion);
     }
-
   };
 
   private seekToRegionStart(region) {
@@ -148,7 +148,6 @@ export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy  {
         // Enable creating regions by dragging
         if (this.practiceMode) {
           this.wavesurfer.enableDragSelection({});
-
         }
 
         this.wavesurfer.on('play', () => {

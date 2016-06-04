@@ -49,6 +49,7 @@ attachmentContentRouter.get('/:attachmentId', (req, res) => {
                 let contentRange = 'bytes ' + start + '-' + end + '/' + total;
                 writeHeader(res, contentRange, chunk.length);
                 res.write(chunk);
+                res.end();
             } else {
                 if (err) {
                     res.sendStatus(500);
@@ -56,6 +57,7 @@ attachmentContentRouter.get('/:attachmentId', (req, res) => {
                     let contentRange = 'bytes 0-' + totalEnd + '/' + total;
                     writeHeader(res, contentRange, total);
                     res.write(buffer);
+                    res.end();
                 }
             }
         });
