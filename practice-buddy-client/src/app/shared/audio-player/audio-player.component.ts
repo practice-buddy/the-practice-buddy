@@ -157,6 +157,9 @@ export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy  {
         this.wavesurfer.on('pause', () => {
           this.playing = false;
         });
+        this.wavesurfer.on('finish', () => {
+          this.playing = false;
+        });
         this.wavesurfer.on('region-created', (region)=> {
           this.selectedRegion = region;
           region.once('play', () => {
