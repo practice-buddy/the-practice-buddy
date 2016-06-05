@@ -11,12 +11,12 @@ import attachmentContentRepository  = attachmentContent.repository;
 export let attachmentContentRouter = express.Router();
 attachmentContentRouter.use(isAuthenticated);
 
-let writeHeader = (res, contentRange, total) => {
-    console.log(contentRange);
+let writeHeader = (mimetype, res, contentRange, total) => {
     res.writeHead(206, {
         'Content-Range': contentRange,
         'Accept-Ranges': 'bytes',
-        'Content-Length': total
+        'Content-Length': total,
+        'Content-Type': mimetype
     });
 };
 
@@ -47,7 +47,7 @@ attachmentContentRouter.get('/:attachmentId', (req, res) => {
                 let end = parseEnd(totalEnd, partialend);
                 let chunk = buffer.slice(start, end + 1);
                 let contentRange = 'bytes ' + start + '-' + end + '/' + total;
-                writeHeader(res, contentRange, chunk.length);
+                writeHeader(file.mimetype, res, contentRange, chunk.length);
                 res.write(chunk);
                 res.end();
             } else {
@@ -55,7 +55,7 @@ attachmentContentRouter.get('/:attachmentId', (req, res) => {
                     res.sendStatus(500);
                 } else {
                     let contentRange = 'bytes 0-' + totalEnd + '/' + total;
-                    writeHeader(res, contentRange, total);
+                    writeHeader(file.mimetype, res, contentRange, total);
                     res.write(buffer);
                     res.end();
                 }

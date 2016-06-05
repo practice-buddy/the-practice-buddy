@@ -52,6 +52,7 @@ export class AudioPlayerComponent implements OnChanges, OnInit, OnDestroy {
     this.destroyWavesurfer();
     this.lazyInitWaveSurfer();
     this.selectedAudioFile = audioFile;
+
     this.wavesurfer.load('/attachments/' + this.selectedAudioFile.content);
   }
 
